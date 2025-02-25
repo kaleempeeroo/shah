@@ -6,6 +6,18 @@
     the_post(); ?>
     <h2><?php the_title(); ?></h2>
     <?php the_content(); ?>
+
+	<!-- SECTION -->
+	<div class="section">
+		<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+  				<!-- output php here -->
+				</div>
+  			</div>
+  	</div>	
+
     <!-- Product tab -->
     <div class="col-md-12">
 						<div id="product-tab">
