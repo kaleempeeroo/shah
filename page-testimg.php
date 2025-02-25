@@ -3,7 +3,7 @@ get_header();
 ?>
 					<!-- Product main img -->
 					<?php echo '<h1>sshey</h1>' ; ?>
-					<div class="col-md-5 col-md-push-2">
+					<div class="col-md-8 col-md-push-2">
 							<!-- Product main img -->
 							<div class="col-md-5 col-md-push-2">
 						<div id="product-main-img">
