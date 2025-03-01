@@ -1,7 +1,9 @@
 jQuery(document).ready(function ($) {
-    $("input.wspsc_add_cart_submit").replaceWith( 
+
+  $("input.wspsc_add_cart_submit").replaceWith( 
         "<button class=\"add-to-cart-btn\"><i class=\"fa fa-shopping-cart\"></i>Add to Cart</button> " 
         );
+
 
     	$('#product-main-img').slick({
             infinite: true,

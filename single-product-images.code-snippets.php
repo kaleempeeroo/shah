@@ -1,11 +1,16 @@
-<? php
+<?php
+
+/**
+ * Single Product Images
+ */
 remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
 add_action( 'woocommerce_product_thumbnails', 'woocommerce_show_product_thumbnails', 20 );
 
 
 add_action( 'woocommerce_before_single_product_summary', 'hey', 20 );
-add_action( 'woocommerce_product_thumbnails', 'hey', 10 );
-remove_
+// removed below action and images displaying correctly.
+//add_action( 'woocommerce_product_thumbnails', 'hey', 10 );
+ 
 //add_action( 'woocommerce_product_thumbnails', 'hey', 20 );
  
 function hey () {

@@ -1,0 +1,50 @@
+#product-price p {
+    display: inline-block;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    color: #D10024;
+		position:relative;
+}
+
+.woocommerce-Price-currencySymbol{
+	padding-right:8px;
+}
+
+ins {
+	text-decoration: none;
+}
+
+del:first-child::before {
+	width:100%;
+	top:10px;
+	border-top: 1px solid #424a57;
+	content: '';
+	position:absolute;
+}
+
+del:first-child {
+	text-decoration:none;
+	left:90px;
+	bottom:3.5px;
+	position:absolute;
+	font-size: 70% !important;
+  font-weight: 500 !important;
+  color: #424a57 !important;
+}
+
+.product-details 
+.product-available {
+	font-size: 12px;
+	position:relative;
+	left: 100px;
+	bottom: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  
+  color: #D10024;
+}
+
+.woocommerce div.product div.sum mary {
+	margin-bottom: 5em;
+}
