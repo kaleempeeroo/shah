@@ -1,10 +1,6 @@
 <?php
-
-/**
- * Single Product Images
- */
 remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
-add_action( 'woocommerce_product_thumbnails', 'woocommerce_show_product_thumbnails', 20 );
+remove_action( 'woocommerce_product_thumbnails', 'woocommerce_show_product_thumbnails', 20 );
 
 
 add_action( 'woocommerce_before_single_product_summary', 'hey', 20 );
@@ -14,12 +10,13 @@ add_action( 'woocommerce_before_single_product_summary', 'hey', 20 );
 //add_action( 'woocommerce_product_thumbnails', 'hey', 20 );
  
 function hey () {
-	
+	echo 'hey';
 	?>
 				
 					<!-- Product main img -->
-					
-					<div id="custom-wrapper" style="width:80%;left:50px;position:relative;">
+					<?php echo '<h1>sshey</h1>' ; ?>
+					<div id="custom-wrapper" style="width:80%;height:700px;left:50px;position:absolute;display:block;border:1px solid yellow;">
+
 						<!-- Product main img -->
 						<div class="col-md-5 col-md-push-2">
 						<div id="product-main-img">

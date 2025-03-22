@@ -7,8 +7,7 @@
 </div>
 </footer>
 </div>
--->
-	
+-->	
 		<!-- NEWSLETTER -->
 		<div id="newsletter" class="section">
 			<!-- container -->

@@ -175,5 +175,5 @@
 				<!-- /row -->
 			</div>
 			<!-- /container -->
-		</div>
-		<!-- /BREADCRUMB -->
+	</div>
+	<!-- /BREADCRUMB -->

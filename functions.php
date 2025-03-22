@@ -33,7 +33,7 @@ function shah_files() {
 
     wp_enqueue_script('custom-zoom', get_theme_file_uri('/js/jquery.zoom.min.js'), 'JQuery', 1.5, TRUE);
 
-    wp_enqueue_script('ho', get_theme_file_uri('/js/ho.js'), array('jquery'), '1.0', true);
+    //wp_enqueue_script('ho', get_theme_file_uri('/js/ho.js'), array('jquery'), '1.0', true);
     wp_enqueue_script( 'bootstrap-js', get_theme_file_uri('/js/bootstrap.min.js'), '1.0', true);
     wp_enqueue_script('main', get_theme_file_uri('/js/main.js'), array('jquery'), '1.0', true);
 
@@ -61,4 +61,15 @@ function shah_files() {
 
   }
 
-  add_action('wp_enqueue_scripts', 'shah_files');
+// changing Single product title style
+add_action('wp_enqueue_scripts', 'shah_files');
+add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+//add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 40 );
+//add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+
+
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
+add_action( 'woocommerce_single_product_summary', 'sgl_template_single_title', 5 );
+function sgl_template_single_title() {
+   the_title( '<h2 class="product-name">', '</h2>' );
+}

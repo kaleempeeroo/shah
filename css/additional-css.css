@@ -14,8 +14,23 @@
 ins {
 	text-decoration: none;
 }
+.related .products ins {
+	color: blue;
+	border: 1px solid;
+	padding-right: 15px;
+	position:relative;
+}
 
-del:first-child::before {
+.related .products span.price {
+	position:relative;
+}
+.related .products del {
+	font-size:10px;
+	left:10px;
+	display:block;
+	
+}
+#product-price del:first-child::before {
 	width:100%;
 	top:10px;
 	border-top: 1px solid #424a57;
@@ -23,9 +38,9 @@ del:first-child::before {
 	position:absolute;
 }
 
-del:first-child {
+#product-price del:first-child {
 	text-decoration:none;
-	left:90px;
+	left:110px;
 	bottom:3.5px;
 	position:absolute;
 	font-size: 70% !important;
@@ -45,6 +60,53 @@ del:first-child {
   color: #D10024;
 }
 
-.woocommerce div.product div.sum mary {
+td {
+	display: inline;
+}
+tr {
+	
+	align-content: center;
+	vertical-align: middle;
+	color: #333;
+	display: inline-block;
+	
+}
+label {
+	color: #333;
+	font-weight: 500 !important;
+	font-size: 12px;
+	position: relative;
+	left:10px;
+	top: 10px;
+	
+}
+
+select {
+	width: 91px !important;
+	min-width: 90px !important;
+	font-family: 'Monserrat';
+padding: 0px 15px;
+    background: #FFF;
+    border: 1px solid #E4E7ED;
+    height: 40px;	
+	font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: #333;
+font-size: 12px;
+	text-transform: none;
+	margin:0;
+    line-height: 1.42857143;
+    color: #333;
+}
+
+.woocommerce div.product div.summary {
 	margin-bottom: 5em;
+}
+
+.product-details .product-options label {
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-right: 15px;
+    margin-bottom: 0px;
 }

@@ -5,6 +5,7 @@ jQuery(document).ready(function ($) {
         );
 
 
+        /*
     	$('#product-main-img').slick({
             infinite: true,
             speed: 300,
@@ -45,5 +46,5 @@ jQuery(document).ready(function ($) {
             //}
         
         
-
+*/
     }); 
