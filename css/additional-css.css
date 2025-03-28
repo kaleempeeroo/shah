@@ -81,7 +81,26 @@ label {
 	
 }
 
-select {
+.woocommerce div.product form.cart .button,
+.woocommerce .quantity .qty {
+	display:none;
+}
+
+.qty-label label {	
+	align-content: center;
+	vertical-align:middle;
+	color: #333;
+	left:15px;
+	top:0;
+	
+	
+}
+.qty-label td {
+	display:inline-block;	
+	
+	
+} 
+select, .input-number {
 	width: 91px !important;
 	min-width: 90px !important;
 	font-family: 'Monserrat';
@@ -99,11 +118,18 @@ font-size: 12px;
     color: #333;
 }
 
+.input-number {
+	width: 92px !important;
+	padding:0px;
+	border:none;
+	left:-3px;
+}
+
 .woocommerce div.product div.summary {
 	margin-bottom: 5em;
 }
 
-.product-details .product-options label {
+.product-details .product-options label,.qty-label label {
     font-weight: 500;
     font-size: 12px;
     text-transform: uppercase;
