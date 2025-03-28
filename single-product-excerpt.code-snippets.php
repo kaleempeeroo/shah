@@ -123,10 +123,48 @@ remove_action( 'woocommerce_external_add_to_cart', 'woocommerce_external_add_to_
 remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation', 10 );
 add_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add_to_cart_button', 20 );
 */
-do_action( 'woocommerce_before_quantity_input_field' );
-do_action( 'woocommerce_after_quantity_input_field' );
+//remove_action( 'woocommerce_before_quantity_input_field' );
+//remove_action( 'woocommerce_after_quantity_input_field' );
 do_action( 'woocommerce_after_add_to_cart_button' );
 do_action( 'woocommerce_after_add_to_cart_form' );
+add_action( 'woocommerce_before_quantity_input_field', 'before_quantity_input_field', 10 );
+function before_quantity_input_field() {
+	echo 'before';
+	?>
+<div class="qty-label" style="border=1px solid;">
+<table id="input-number">
+	<tr>
+		
+		<td><label>Qty</label></td>
+		<td style="padding-left:2px;">	<div class="input-number">
+										<input type="number" value=1>
+										
+										<span class="qty-up">+</span>
+										<span class="qty-down">-</span>
+	
+									</div>
+		</td>
+		<td style="padding-left:25px;">
+			                                 <button class="add-to-cart-btn">
+                                                <i class="fa fa-shopping-cart"></i> add to cart
+                                              </button>
+         </td>
+		</tr>
+	</table>
+</div>
+                                            	
+                                              
+                                            
+                     
+                                           
+<?php
+}
+add_action( 'woocommerce_after_quantity_input_field', 'after_quantity_input_field', 10 );
+function after_quantity_input_field() {
+echo 'after';
+	?>
+	<?php
+}
 
 function excerpt () {
 	the_title();
@@ -139,54 +177,7 @@ function woocommerce_before_variable_add_to_cart() {
 ?>
 							<div class="product-options">
 								heyy
-			<!--
-								<label>
-									Size
-									<select class="input-select">
-										<option value="0">X</option>
-									</select>
-								</label>
-								<label>
-									Color
-									<select class="input-select">
-										<option value="0">Red</option>
-									</select>
-								</label>
-							</div>
-
-							<div class="add-to-cart">
-								<div class="qty-label">
-									Qty
-									<div class="input-number">
-										<input type="number">
-										<span class="qty-up">+</span>
-										<span class="qty-down">-</span>
-									</div>
-								</div>
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							</div>
-							<ul class="product-btns">
-								<li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
-								<li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
-							</ul>
-
-							<ul class="product-links">
-								<li>Category:</li>
-								<li><a href="#">Headphones</a></li>
-								<li><a href="#">Accessories</a></li>
-							</ul>
-
-							<ul class="product-links">
-								<li>Share:</li>
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i></a></li>
-							</ul>
-
-						</div>
-					</div>
-					<!-- /Product details -->
+			
 <?php }
 
 
