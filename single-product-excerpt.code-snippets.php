@@ -80,23 +80,36 @@ function open_excerpt_div() {
 		
 <?php
 }
+
 add_action( 'woocommerce_single_product_summary', 'close_excerpt_div', 45 );
+
 function close_excerpt_div(){
 	
+	echo do_shortcode('[insertrankyasharebuttonshortcode]');
+
 	?>
+	<ul class="product-links">
+		<li>Share:</li>
+		<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+		<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+		<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+		<li><a href="#"><i class="fa fa-envelope"></i></a></li>
+	</ul>
+
 </div>close product details
-	<?php
+<?php
 }
+
 add_action( 'woocommerce_after_single_product_summary', 'clear_tabs', 10 );
+
 function clear_tabs() {
 	?>
 	open tabs div
 	
-		<div style="height:200px; width:100%; clear:both;"></div>
+	<div style="height:200px; width:100%; clear:both;"></div>
 	
-close tabs div
-<?php
-	
+	close tabs div
+<?php	
 }
 
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
@@ -134,8 +147,8 @@ function before_quantity_input_field() {
 <div class="qty-label" style="border=1px solid;">
 <table id="input-number">
 	<tr>
-		
-		<td><label>Qty</label></td>
+		<th class="label"><label>Qty</label></th>
+		<td></td>
 		<td style="padding-left:2px;">	<div class="input-number">
 										<input type="number" value=1>
 										
@@ -151,6 +164,8 @@ function before_quantity_input_field() {
          </td>
 		</tr>
 	</table>
+	
+	
 </div>
                                             	
                                               

@@ -136,3 +136,19 @@ font-size: 12px;
     margin-right: 15px;
     margin-bottom: 0px;
 }
+
+/* Social Media Single Product Page Excerpt icons */
+
+span.posted_in {
+	text-transform: uppercase;
+	font-size: 12px;
+}
+
+span.posted_in a {
+	margin-left:10px;
+}
+
+.social-share-div a.buttonlink {
+	font-size: 11px;
+	padding: 5px;	
+}

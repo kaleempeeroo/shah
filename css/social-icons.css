@@ -1,0 +1,98 @@
+/*
+Styles for adding social media share links to website built on WordPress CMS.
+Download Automatic + Shortcode + css code from below:
+https://www.rankya.com/wordpress/how-to-add-social-media-share-links-to-wordpress-without-a-plugin/?unapproved=68649&moderation-hash=4effde82275080481cb687925b15e143#comment-68649
+
+*/
+
+
+div#content a:active,
+div#content a:focus,
+div#content a:hover {
+	color: #00f;
+	background-color: #f0f0f0;
+}
+
+.social-share-div a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+	background:#2d2d2d
+}
+
+.social-share-div {
+	display: block;
+	width: auto;
+	margin: 1rem 0 1rem 0;
+}
+
+.share-buttons {
+	display: block;
+	width: 100%;
+}
+
+.share-buttons > a {
+padding: .7rem .4rem;
+	margin-top: 1rem;
+	margin-right: 0.5rem;
+}
+
+a.buttonlink {
+	width: auto;
+	display: inline-block;
+	text-align: center;
+	border-radius: 7px;
+	color: #FFFFFF !important;
+	line-height: 1.6;
+	text-decoration:none;
+	font-size:16px; /*for Search Console Mobile Usability*/
+	position: relative;
+}
+
+/*IMPORTANT declarations will override default WP theme*/
+.share-button-profile-twitter {
+	background: #03A9F4 !important;
+}
+
+.share-button-profile-twitter:active,
+.share-button-profile-twitter:focus,
+.share-button-profile-twitter:hover {
+	background: #0093d6 !important;
+}
+
+.share-button-profile-facebook {
+	background: #23599A !important;
+}
+
+a.buttonlink.share-button-profile-facebook:active,
+a.buttonlink.share-button-profile-facebook:focus,
+a.buttonlink.share-button-profile-facebook:hover {
+	background: #6284B6 !important;
+}
+
+.share-button-profile-whatsapp {
+	background: #4CAF50 !important;
+}
+
+a.buttonlink.share-button-profile-whatsapp:active,
+a.buttonlink.share-button-profile-whatsapp:focus,
+a.buttonlink.share-button-profile-whatsapp:hover {
+	background: #3d9440 !important;
+}
+
+.share-button-profile-linkedin {
+	background: #1a7baa !important;
+}
+
+a.buttonlink.share-button-profile-linkedin:active,
+a.buttonlink.share-button-profile-linkedin:focus,
+a.buttonlink.share-button-profile-linkedin:hover {
+	background: #136288 !important;
+}
+
+.share-button-profile-pinterest {
+	background: #bd081c !important;
+}
+
+a.buttonlink.share-button-profile-pinterest:active,
+a.buttonlink.share-button-profile-pinterest:focus,
+a.buttonlink.share-button-profile-pinterest:hover {
+	background: #a10718 !important;
+}
