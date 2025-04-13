@@ -156,24 +156,38 @@
 			<!-- /container -->
 		</nav>
 		<!-- /NAVIGATION -->
+	
 	<!-- BREADCRUMB -->
+	<?php
+
+	add_action( 'woocommerce_before_single_product', 'open_breadcrumbs_div', 15, 0 );
+	
+	function open_breadcrumbs_div() {
+	?>
 	<div id="breadcrumb" class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-12">
-						<ul class="breadcrumb-tree">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">All Categories</a></li>
-							<li><a href="#">Accessories</a></li>
-							<li><a href="#">Headphones</a></li>
-							<li class="active">Product name goes here</li>
-						</ul>
-					</div>
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-12">
+						
+	<?php
+	}
+
+	add_action( 'woocommerce_before_single_product', 'woocommerce_breadcrumb', 20, 0 );
+
+	add_action( 'woocommerce_before_single_product', 'close_breadcrumbs_div', 25, 0 );
+	
+	function close_breadcrumbs_div() {
+	?>
 				</div>
-				<!-- /row -->
 			</div>
-			<!-- /container -->
+			<!-- /row -->
+		</div>
+		<!-- /container -->
 	</div>
+	<!-- /breadcrumbs -->		
+	<?php
+	}
+	?>
 	<!-- /BREADCRUMB -->

@@ -144,4 +144,38 @@ function rankyasharebuttonshortcode(){
 	} //END if(is_singular()) check
         return $content;
 }
+
 add_shortcode('insertrankyasharebuttonshortcode', 'rankyasharebuttonshortcode');
+
+/**
+ * Change several of the breadcrumb defaults
+ */
+add_filter( 'woocommerce_breadcrumb_defaults', 'jk_woocommerce_breadcrumbs' );
+function jk_woocommerce_breadcrumbs() {
+    return array(
+            'delimiter'   => ' ',
+            'wrap_before' => '<ul class="breadcrumb-tree" itemprop="breadcrumb">',
+            'wrap_after'  => '</ul>',
+            'before'      => '<li>',
+            'after'       => '</li>',
+            'home'        => _x( 'Home', 'breadcrumb', 'woocommerce' ),
+        );
+}
+
+/**
+ * Rename "home" in breadcrumb
+ */
+add_filter( 'woocommerce_breadcrumb_defaults', 'wcc_change_breadcrumb_home_text' );
+function wcc_change_breadcrumb_home_text( $defaults ) {
+    // Change the breadcrumb home text from 'Home' to 'Apartment'
+	$defaults['home'] = 'Shop Home';
+	return $defaults;
+}
+
+/**
+ * Replace the home link URL
+ */
+add_filter( 'woocommerce_breadcrumb_home_url', 'woo_custom_breadrumb_home_url' );
+function woo_custom_breadrumb_home_url() {
+    return get_permalink(wc_get_page_id('shop'));
+}

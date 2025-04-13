@@ -41,7 +41,7 @@ ins {
 #product-price del:first-child {
 	text-decoration:none;
 	left:110px;
-	bottom:3.5px;
+	bottom:2.5px;
 	position:absolute;
 	font-size: 70% !important;
   font-weight: 500 !important;
@@ -137,7 +137,7 @@ font-size: 12px;
     margin-bottom: 0px;
 }
 
-/* Social Media Single Product Page Excerpt icons */
+/** Social share icon button */
 
 span.posted_in {
 	text-transform: uppercase;
@@ -151,4 +151,16 @@ span.posted_in a {
 .social-share-div a.buttonlink {
 	font-size: 11px;
 	padding: 5px;	
+}
+
+/** Single product page stock label */
+
+.woocommerce div.product p.stock {
+	position:absolute;
+	top:97px;
+	left:220px;
+	text-transform: uppercase;
+    font-weight: 700;
+    color: #D10024;
+	font-size:12px;
 }
