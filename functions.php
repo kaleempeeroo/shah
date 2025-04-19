@@ -179,3 +179,7 @@ add_filter( 'woocommerce_breadcrumb_home_url', 'woo_custom_breadrumb_home_url' )
 function woo_custom_breadrumb_home_url() {
     return get_permalink(wc_get_page_id('shop'));
 }
+
+/* Adds Reviews tab in single product page */
+add_theme_support( 'woocommerce' );
+

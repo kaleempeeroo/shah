@@ -159,8 +159,10 @@
 	
 	<!-- BREADCRUMB -->
 	<?php
+	
+	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
 
-	add_action( 'woocommerce_before_single_product', 'open_breadcrumbs_div', 15, 0 );
+	add_action( 'woocommerce_before_main_content', 'open_breadcrumbs_div', 15, 0 );
 	
 	function open_breadcrumbs_div() {
 	?>
@@ -174,9 +176,9 @@
 	<?php
 	}
 
-	add_action( 'woocommerce_before_single_product', 'woocommerce_breadcrumb', 20, 0 );
+	add_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
 
-	add_action( 'woocommerce_before_single_product', 'close_breadcrumbs_div', 25, 0 );
+	add_action( 'woocommerce_before_main_content', 'close_breadcrumbs_div', 25, 0 );
 	
 	function close_breadcrumbs_div() {
 	?>

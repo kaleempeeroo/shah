@@ -1640,49 +1640,66 @@ Nested classes:
 	 Product tab
 \*----------------------------*/
 
-#product-tab {
+
+#product-tab,
+.woocommerce div.product .woocommerce-tabs {
   margin-top: 60px;
 }
 
-#product-tab .tab-nav {
+#product-tab .tab-nav, .woocommerce div.product .woocommerce-tabs ul.tabs {
   position: relative;
   text-align: center;
-  padding: 15px 0px;
-  margin-bottom: 30px;
+  padding: 15px 0px !important;
+  margin-bottom: 30px !important;
 }
 
-#product-tab .tab-nav:after {
+#product-tab .tab-nav:after,
+.woocommerce div.product .woocommerce-tabs ul.tabs::before {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
   height: 1px;
-  background-color: #E4E7ED;
+  border-bottom:1px solid #E4E7ED;
   z-index: -1;
 }
 
-#product-tab .tab-nav li {
+#product-tab .tab-nav li,
+.woocommerce div.product .woocommerce-tabs ul.tabs li {
   display: inline-block;
   background: #FFF;
-  padding: 0px 15px;
+  padding: 0px 15px !important;
 }
 
-#product-tab .tab-nav li+li {
+#product-tab .tab-nav li+li,
+.woocommerce div.product .woocommerce-tabs ul.tabs li+li {
   margin-left: 15px;
 }
 
-#product-tab .tab-nav li a {
-  display: block;
-  font-weight: 700;
+#product-tab .tab-nav li a,
+.woocommerce div.product .woocommerce-tabs ul.tabs li a
+{
+  display: block !important;
+  font-weight: 700 !important;
+  color: #8D99AE;
+  padding-bottom: 5px;
+  transition: none !important;
+  
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li a:hover {
   color: #8D99AE;
 }
 
-#product-tab .tab-nav li.active a {
+
+#product-tab .tab-nav li.active a,
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active a {
   color: #D10024;
+  
 }
 
-#product-tab .tab-nav li a:after {
+#product-tab .tab-nav li a:after,
+.woocommerce div.product .woocommerce-tabs ul.tabs li a:after {
   content: "";
   display: block;
   width: 0%;
@@ -1690,9 +1707,16 @@ Nested classes:
   background-color: #D10024;
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
-}
 
-#product-tab .tab-nav li a:hover:after, #product-tab .tab-nav li a:focus:after, #product-tab .tab-nav li.active a:after {
+  }
+
+#product-tab .tab-nav li a:hover:after, 
+#product-tab .tab-nav li a:focus:after, 
+#product-tab .tab-nav li.active a:after,
+.woocommerce div.product .woocommerce-tabs ul.tabs li a:hover:after,
+.woocommerce div.product .woocommerce-tabs ul.tabs li a:focus:after,
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active a:after
+ {
   width: 100%;
 }
 
