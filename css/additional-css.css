@@ -263,5 +263,38 @@ ul.products li:hover {
 	bottom: 15px;
 }
 
+/* Single product product images */
+
+#product-main-img img{
+	width:500px;
+	top: 0px;
+	left: 0px;
+	position:relative;
+}
+
+#product-main-img.slick-slider {
+	width: 480px !important;
+	height: 300px;
+	left:95px !important;
+}
+
+#product-imgs .slick-list {
+  width:170px;
+}
+
+#product-imgs .slick-list img {
+	width: 150px !important;
+	height: 150px !important;
+}
+
+#product-imgs .product-preview {
+  width: 160px !important;
+}
+
+#product-imgs.slick-vertical {
+	width: 170px;
+}
+
+
 
 

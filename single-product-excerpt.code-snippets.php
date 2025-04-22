@@ -6,12 +6,18 @@ remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_singl
 ////do_action( 'woocommerce_product_after_tabs' );
 //add_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
 //add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+//add_action( 'woocommerce_before_single_product', 'woocommerce_breadcrumb', 15, 0 );
+//add_action( 'woocommerce_before_single_product', 'heyy', 13, 0 );
+
+function heyy() {
+  echo 'heyo';
+}
 
 
 add_action( 'woocommerce_single_product_summary', 'open_excerpt_section_div', 2 );
 function open_excerpt_section_div () {
 ?>
-<div class="product-details" style="clear:both;z-index:10;position:relative;border:1px solid green;"> open product details
+<div class="product-details" style="clear:both;z-index:10;position:relative;border:1px solid green;margin-left:50px;"> open product details
 <?php
 }
 add_action( 'woocommerce_single_product_summary', 'open_price_div', 7 );
@@ -29,7 +35,6 @@ add_action( 'woocommerce_single_product_summary', 'close_price_div', 11 );
 function close_price_div() {	
 ?>					
 		<del class="product-old-price"></del></h3>
-		<span class="product-available">In Stock</span>
 	</div>
 					
 <?php
@@ -100,7 +105,7 @@ function close_excerpt_div(){
 <?php
 }
 
-add_action( 'woocommerce_after_single_product_summary', 'clear_tabs', 10 );
+//add_action( 'woocommerce_after_single_product_summary', 'clear_tabs', 10 );
 
 function clear_tabs() {
 	?>
@@ -112,8 +117,7 @@ function clear_tabs() {
 <?php	
 }
 
-remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
-add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 20 );
+add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
 add_action( 'woocommerce_single_product_summary', 'excerpt', 28 );
 
 do_action( 'woocommerce_before_add_to_cart_form' );
