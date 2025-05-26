@@ -183,3 +183,50 @@ function woo_custom_breadrumb_home_url() {
 /* Adds Reviews tab in single product page */
 add_theme_support( 'woocommerce' );
 
+
+add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+add_action( 'woocommerce_product_additional_information', 'wc_display_product_attributes', 10 );
+
+
+/* function referenced by cr-single-product-woocommerce.php 
+   to override comments div to display our own custom css with a light colored
+   box to surround comments and also format the date and include fa stars.
+*/
+
+function rjs_comments_walker() {
+  $rjs_comment_email = get_comment_author_email();
+  $rjs_gravatar = get_avatar( $rjs_comment_email, 160 ); ?>
+
+    <li class="rjs-comment" id="comment-<?php comment_ID() ?>">
+
+          <div class="rjs-comment-authorinfo rjs-sans">
+                  <h5><?php echo get_comment_author(); ?></h5>
+                  <p class="rjs-comment-date"><?php echo strtoupper(date('d M Y',strtotime(get_comment_date()))); ?></p>
+                  <p class="rjs-comment-rating">
+                  <?php 
+                      $stars_count = get_comment_meta( get_comment_ID(), 'rating', true ) ;
+                      for ($x = 0; $x < 5; $x++) {
+                        if ($x < $stars_count) echo '<i class="fa fa-star"></i>';
+                        else  echo '<i class="fa fa-star-o"></i>';
+                      }
+                  ?>
+                </p>
+          </div>
+         <div class="rjs-comment-reply">
+          
+                  <p class="rjs-comment-text"><?php echo get_comment_text(); ?></p>
+
+                  <?php   /* Not allowing replies to comments 
+                          comment_reply_link( [
+                          'add_below' => true,
+                          'depth'     => 20,
+                          'max_depth' => 200,
+                          'before'    => '<div class="reply">',
+                          'after'     => '</div>'
+                      ] ); */?>
+          </div>
+    </li>
+
+<?php 
+
+}

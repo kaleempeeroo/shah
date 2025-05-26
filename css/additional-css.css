@@ -296,73 +296,77 @@ ul.products li:hover {
 }
 
 
+
 /* reviews rating and histogram wrapping div */
+
 #reviews .cr-summaryBox-wrap, .cr-all-reviews-shortcode .cr-summaryBox-wrap, .cr-reviews-grid .cr-summaryBox-wrap {
-    position: relative;
-    border: 1px solid;
-    height: 500px;
+  position: relative;
+  height: 320px;
+	background-color:#fff;
 }
 /*
 #reviews .cr-summaryBox-wrap .cr-overall-rating-wrap, .cr-all-reviews-shortcode .cr-summaryBox-wrap .cr-overall-rating-wrap, .cr-all-reviews-shortcode .cr-summaryBox-wrap .cr-add-review-wrap, .cr-reviews-grid .cr-summaryBox-wrap .cr-overall-rating-wrap, .cr-reviews-grid .cr-summaryBox-wrap .cr-add-review-wrap {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    margin: 10px 0 0 50px;
-    display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin: 10px 0 0 50px;
+  display: block;
 }
 */
 
 /* reviews histogram bars to display on separate new lines */
+
 #reviews tr {
-    display: block; 
+  display: block; 
 }
 
 /* review histogram chart bar */
+
 #reviews .cr-summaryBox-wrap .ivole-summaryBox {
-    position: absolute;
-    top: 50px;
-		width: 25%;
-		background-color: yellow;
-		left: -12px;
+  position: absolute;
+  top: 50px;
+  width: 25%;
+  left: -12px;
 }
 
 /* stars icons next to review average */
+
 div.cr-average-rating-stars{
-	padding-left: 10px;
+  padding-left: 10px;
 }
 
 /* Review rating average and stars icons div */
+
 #reviews .cr-summaryBox-wrap .cr-overall-rating-wrap {
-	/*background-color:greenyellow;*/
-	  /*display: ruby;*/
-    justify-content: left;
-    /* align-items: start; */
-    flex-wrap: wrap;
-    flex-direction: column;
-    /* position: relative; */
-   position: absolute;
-    top: 0px;
-    left: 0px;
-	
-    /*margin: 10px 0 0 50px;*/
+/*background-color:greenyellow;*/
+  /*display: ruby;*/
+  justify-content: left;
+  /* align-items: start; */
+  flex-wrap: wrap;
+  flex-direction: column;
+  /* position: relative; */
+ 	position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 /* text showing "based on number of reviews" */
+
 #reviews .cr-summaryBox-wrap .cr-total-rating-count {
 	display:none;
 }
 
-/* reviews big red stars color */
-.crstar-rating-svg .cr-rating-icon-frnt .cr-rating-icon {
-    width: 30px;
-    height: 25px;
-    fill: #D10024;
-	  overflow:hidden;
+/* reviews big red stars */
 
-	
+.crstar-rating-svg .cr-rating-icon-frnt .cr-rating-icon {
+  width: 30px;
+  height: 25px;
+  fill: #D10024;
+  overflow:hidden;
 }
 
 /* reviews background big blank stars for average */
+
 .crstar-rating-svg .cr-rating-icon-base .cr-rating-icon-bg {
 	height:25px;
 	width:30px;
@@ -371,166 +375,376 @@ div.cr-average-rating-stars{
 }
 
 /* reviews big red star as foreground over the blank stars in the background for average */
+
 .crstar-rating-svg .cr-rating-icon-frnt {
 	height: 25px;
-	/*background-color: blue;	*/
-	
 }
 
 /* reviews average number */
+
 .cr-average-rating span {
-	/* background-color:gray; */
 	position: absolute;
 	left: 0;
 	top: 0;
 	font-size: 24px;
-  font-weight: 700;
-	
-	}
+	font-weight: 700;
 
-/* Reviews average stars */
-.cr-average-rating-stars {
-	/* background-color: black; */
-	left: 30px;
-	top: 7px;
-	position: absolute;
-	
 }
 
-/* reviews chart table */
+/* Reviews average stars */
+
+.cr-average-rating-stars {
+left: 30px;
+top: 7px;
+position: absolute;
+
+}
+
+/* reviews chart table histogram */
+
 .cr-histogramTable {
-	margin:0
+	margin:10;
 }
 
 /* reviews pagination button */
+
 .woocommerce nav.woocommerce-pagination ul li {
-   display: inline-block;
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
-    text-align: center;
-    background-color: #FFF;
-    border: 1px solid #E4E7ED;
-    -webkit-transition: 0.2s all;
-    transition: 0.2s all;
-	  margin-left:21px;
-	
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  background-color: #FFF;
+  border: 1px solid #E4E7ED;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+  margin-left:5px;
+
 }
 
 /* reviews pagination currently selected page number */
+
 .woocommerce nav.woocommerce-pagination ul li span.current {
-    background-color: #D10024;
-    border-color: #D10024;
-    color: #FFF;
-    cursor: default;
-	  height:100%;
+  background-color: #D10024;
+  border-color: #D10024;
+  color: #FFF;
+  cursor: default;
+  height:100%;
+	line-height: normal;
 }
 
 /* reviews pagination page number */
+
 .woocommerce nav.woocommerce-pagination ul li a {
 	color: #2B2D42;
-  font-weight: 500;
-  -webkit-transition: 0.2s color;
-  transition: 0.2s color;
+	font-weight: 500;
+	-webkit-transition: 0.2s color;
+	transition: 0.2s color;
 	height:100%;
+	line-height: normal;
 }
 
 /* reviews pagination outer box outline */
+
 .woocommerce nav.woocommerce-pagination ul {	
 	border: none;
 }
 
 /* reviews section */
+
 #reviews {
-    position: relative;
+  position: relative;
 }
 
 /* reviews form */
+
 #review_form_wrapper {
 	position: absolute;
 	top:0;
 	right:0;	
-	background-color:green;
 	margin-top: 50px;
 	width: 25%;
 }
 
-/* reviews comments */
+/* reviews comments ol list */
 .woocommerce #reviews #comments ol.commentlist {
-  position: absolute;
-  top: 0;
-	background-color: violet;
-	left: 25%;
-	width: 50%;
+	position: absolute;
+	top: 0;
+	min-width: fit-content;
 	margin-top: 50px;
+	overflow: auto;
+	height: 300px;
 }
 
 /* Reviews count and product name in title */
 .woocommerce #reviews #comments h2 {
-    position: absolute;
-    top: 10px;
+  position: absolute;
+  top: -10px;
 }
 
 /* Rating Meter bar red color */
 
 .ivole-meter .ivole-meter-bar {
-    background: #D10024;
-    /* background: -webkit-linear-gradient(top, #ffce00, #ffa700); */
-    /* background: linear-gradient(to bottom, blue, #ffa700); */
-    /* background-color: blue; */
-    /* box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .25), inset 0 -1px 0 rgba(0, 0, 0, .05); */
-    -webkit-transition: width .5s ease;
-    transition: width .5s ease;
-    float: left;
-    font-size: 0;
-    
-    
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    border-radius: 5px;
+  background: #D10024;
+  /* background: -webkit-linear-gradient(top, #ffce00, #ffa700); */
+  /* background: linear-gradient(to bottom, blue, #ffa700); */
+  /* background-color: blue; */
+  /* box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .25), inset 0 -1px 0 rgba(0, 0, 0, .05); */
+  -webkit-transition: width .5s ease;
+  transition: width .5s ease;
+  float: left;
+  font-size: 0;
+  
+  
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 5px;
 }
 
 /* whole rating bar grey colour */
 
 .ivole-meter {
-  	overflow: hidden;
-    background: none;
-    box-shadow: none;
-    box-sizing: border-box;
-	  position: relative;
-    display: inline-block;
-    height: 9px;
-    background-color: #E4E7ED;
-    width: 120px;
-    margin: 0px 10px;
-    border-radius: 5px;
+  overflow: hidden;
+  background: none;
+  box-shadow: none;
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  height: 9px;
+  background-color: #E4E7ED;
+  width: 120px;
+  margin: 0px 10px;
+  border-radius: 5px;
 }
 
 /* red star */
-.ivole-histogramRow i.fa-star {
+
+.ivole-histogramRow i.fa-star,
+.rjs-comment-authorinfo.rjs-sans i.fa-star {
   color: #D10024;
+  font-size:15px;
+}
+
+/* remove margin for first red star */
+
+.ivole-histogramRow i.fa-star, .rjs-comment-authorinfo.rjs-sans i.fa-star:not(:first-child){
+  margin-left: 3px;
+	
+}
+
+/* blank star */
+
+.ivole-histogramRow i.fa-star-o,
+.rjs-comment-authorinfo.rjs-sans i.fa-star-o{
+	color: #E4E7ED;
 	margin-left: 3px;
 	font-size:15px;
 }
 
-
-/* blank star */
-.ivole-histogramRow i.fa-star-o {
-  color: #E4E7ED;
-	margin-left: 3px;
-  font-size:15px;
-}
-
 /* Number of reviews and percent */
+
 .cr-histogramTable tr.ivole-histogramRow .ivole-histogram-a, .cr-histogramTable tr.ivole-histogramRow .cr-histogram-a {
-    font-size: 12px;
-    color: #8D99AE;
+  font-size: 12px;
+  color: #8D99AE;
+}
+
+/* author, date, stars for comments div li children */
+
+.woocommerce #reviews #comments ol.commentlist li {
+  clear: both;
+}
+
+/* author, date, stars for comments div */
+
+.rjs-comment-authorinfo.rjs-sans {
+  float:left;
+	margin-bottom:20px;
+	min-width: fit-content;
+}
+
+/* space below reviewer name for comments div */
+
+.rjs-comment-authorinfo.rjs-sans h5 {
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+
+/* date in comments div */
+
+.rjs-comment-authorinfo.rjs-sans .rjs-comment-date {
+  color: #8D99AE;
+  font-size: 10px;
+  margin: 0;
+  
+}
+
+/* space for stars in comments div */
+
+.rjs-comment-authorinfo.rjs-sans .rjs-comment-rating {
+  margin-top: 5px;
+}
+
+p.rjs-comment-text {
+	padding: 10px;
+}
+
+/* comments paragraph text outline */
+
+div.rjs-comment-reply {
+	position: absolute;
+	left: 90px;
+	border: 1px dotted silver;
+	width: 78%;
+}
+
+/* comments wrapping div */
+
+.woocommerce #reviews #comments #commentslist {
+	position: absolute;
+  top: 0;
+	height: 200px;
+	width: 50%;
+	left:25%;
+	margin-left: 10px;
+}
+
+/* review form textarea */
+.woocommerce #review_form #respond textarea {
+  padding: 15px;
+	min-height: 150px;
+}
+
+.review_form .input {
+  margin-bottom: 15px;
+	background-color: yellow;
+}
+
+.review_form  {
+  margin-bottom: 15px;
+}
+
+.woocommerce p.stars a:first-child {
+	padding-right: 20px;
+	color: #E4E7ED;
+}
+
+.woocommerce p.stars a:not(:first-child) {
+	color: #E4E7ED;
+	padding-right: 20px;
+	width: 15px;
+	margin-left: -5px;
+}
+
+.woocommerce p.stars {
+	width: 150px !important;
+}
+.woocommerce p.stars span {
+	 display: inline-block;
+  width: 150px;
+}
+.woocommerce p.stars a::before {
+	content: "\e021";
+   /* font-family: FontAwesome;*/
+    color: #E4E7ED;
+	padding-right:15px; 
 }
 
 
+.woocommerce p.stars span:hover a::before
+{
+    /*content: "\f006";*/
+	content: "\e021";
+    color:#D10024;
+}
+
+.woocommerce p.stars span:hover,
+.woocommerce p.stars a:hover~a::before {
+   
+    color: #E4E7ED;
+	 content: "\e021";
+	 
+	
+}
+
+.woocommerce p.stars.selected a.active::before {
+    content: "\e020";
+    color: #D10024;
+}
+
+.woocommerce p.stars.selected a.active~a::before {
+    content: "\e021";
+    color: #E4E7ED;
+    
+}
+
+/*  stars before selected one */
+.woocommerce p.stars.selected a:not(.active)::before {
+    color: #D10024;
+}
+
+/* unselected stars gray 
+.woocommerce p.stars.selected span:hover,
+.woocommerce p.stars.selected a.active~a::before{
+    color: #E4E7ED;
+}
+*/
 
 
+.woocommerce p.stars.selected a.active~a:hover::before {   
+    color: blue;
+	 content: "\e021";	
+}
+
+.woocommerce #review_form #respond .form-submit input {
+		display: inline-block;
+    padding: 12px 30px;
+    background-color: #D10024;
+    border: none;
+    border-radius: 40px;
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    transition: 0.2s all;
+		top:40px;
+}
+
+.woocommerce #review_form #respond .form-submit .submit:hover,
+.woocommerce #review_form #respond .form-submit .submit:focus
+{
+		opacity: 0.9;
+    color: #FFF;
+}
+
+#review_form .comment-form-rating {
+	position:absolute;
+	top:210px;
+	left: 1px;
+}
+
+.comment-form-comment label[for="comment"],
+span#reply-title{
+	display:none;
+}
+
+.comment-form-rating label[for="rating"] {
+	top:30px ;
+	left: 5px;
+	font-size: 14px;
+}
+
+.woocommerce p.stars {
+	left: 90px;
+	top: 33px;
+	position:absolute;
+}
+
+.woocommerce #review_form #respond textarea{
+	height: 220px;
+	max-height: 220px;
+	overflow: auto;
+}
