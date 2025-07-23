@@ -95,6 +95,7 @@ echo products_count_by_rating_html();
 			</ol>
 			</div>
 			<?php
+			/*
 			if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
 				echo '<nav class="woocommerce-pagination">';
 				paginate_comments_links(
@@ -108,7 +109,7 @@ echo products_count_by_rating_html();
 					)
 				);
 				echo '</nav>';
-			endif;
+			endif;*/
 			?>
 		<?php else : ?>
 			<p class="woocommerce-noreviews"><?php esc_html_e( 'There are no reviews yet', 'customer-reviews-woocommerce' ); ?></p>
@@ -193,6 +194,24 @@ echo products_count_by_rating_html();
 	<?php else : ?>
 		<p class="woocommerce-verification-required"><?php esc_html_e( 'Only logged in customers who have purchased this product may leave a review.', 'woocommerce' ); ?></p>
 	<?php endif; ?>
+	<?php if ( have_comments() ) : ?>
+	<?php
+		if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
+		echo '<nav class="woocommerce-pagination">';
+		paginate_comments_links(
+			apply_filters(
+				'woocommerce_comment_pagination_args',
+				array(
+					'prev_text' => '<i class="fa fa-angle-left"></i>',
+					'next_text' => '<i class="fa fa-angle-right"></i>',
+					'type'      => 'list',
+				)
+			)
+		);
+		echo '</nav>';
+	endif;
 
+	?>
+	<?php endif; ?>
 	<div class="clear"></div>
 </div>
