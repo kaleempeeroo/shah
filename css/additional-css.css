@@ -60,10 +60,11 @@ ins {
   color: #D10024;
 }
 
-td {
+table.variations td {
 	display: inline;
 }
-tr {
+
+table.variations tr {
 	
 	align-content: center;
 	vertical-align: middle;
@@ -157,11 +158,11 @@ span.posted_in a {
 
 .woocommerce div.product p.stock {
 	position:absolute;
-	top:97px;
+  top:147px;
 	left:220px;
 	text-transform: uppercase;
-    font-weight: 700;
-    color: #D10024;
+  font-weight: 700;
+  color: #D10024;
 	font-size:12px;
 }
 
@@ -173,7 +174,6 @@ span.posted_in a {
     position: relative;
     margin: 0 auto;
 	  width: 85%;
- 
 }
 
 /* single product section.
@@ -295,6 +295,9 @@ ul.products li:hover {
 	width: 170px;
 }
 
+#product-main-img.slick-slider {
+	left:10px;
+}
 
 
 /* reviews rating and histogram wrapping div */
@@ -478,7 +481,7 @@ position: absolute;
 /* Reviews count and product name in title */
 .woocommerce #reviews #comments h2 {
   position: absolute;
-  top: -10px;
+  top: -15px;
 }
 
 /* Rating Meter bar red color */
@@ -742,14 +745,12 @@ span#reply-title{
 	position:absolute;
 }
 
-
 /* TextArea review input*/
 .woocommerce #review_form #respond textarea{
 	height: 220px;
 	max-height: 220px;
 	overflow: auto;
 }
-
 
 /* Comments div */
 .woocommerce #reviews #comments {
@@ -764,7 +765,6 @@ span#reply-title{
 	left:50%;
 	transform: translatex(-50%);
 }
-
 
 /* related products heading h3 */
 .woocommerce ul.products li.product h3 {
@@ -785,7 +785,7 @@ span#reply-title{
 		color: #D10024;
 		top: 50%;
 		left: 50%;
-    transform: translateY(-55%)                   translateX(-50%);
+    transform: translateY(-55%) translateX(-50%);
 		background-color:white;
 		z-index: 5;
 }
@@ -800,54 +800,89 @@ span#reply-title{
     font-size: 0.95em;
 }
 
+/***** Related Products **************/
+
+
+/* Related products buttons wrapper div */
+
+.product .product-body .product-btns {
+		position: relative;
+    border: 1px solid;
+    background-color: yellow;
+		display:flex;
+		justify-content:center;
+		
+}
+
+/* Related products wishlist heart button wrapper */
+
 .yith-add-to-wishlist-button-block {
-    display: visible;
-		align-items: center;
-    justify-content: center;
-    position: relative;
-    width: max-content;
-    /* border: 1px solid; */
-    top: 5%; 
-    /* height: 50px; */
-	display: inline-block;
+  width: 40px;
+	height: 40px;
+  margin: 0;
 }
-.yith-wcwl-add-to-wishlist-button.yith-wcwl-add-to-wishlist-button--anchor svg.yith-wcwl-icon-svg, .yith-wcwl-add-to-wishlist-button.yith-wcwl-add-to-wishlist-button--anchor img {
+
+/* Heart icon img for wishlist button */
+
+.yith-wcwl-add-to-wishlist-button.yith-wcwl-add-to-wishlist-button--anchor svg.yith-wcwl-icon-svg, 
+.yith-wcwl-add-to-wishlist-button.yith-wcwl-add-to-wishlist-button--anchor img {
     width: 20px;
-    color: #D10024;
-    /* max-width: 35px; */
-    /* line-height: 350px; */
-    position: absolute;
-    /* border: 1px solid; */
-	
-    /* transform: translateY(-50%); */
 }
 
-.yith-wcwl-add-to-wishlist-button__label,.product .product-body .product-btns>button .tooltipp {
-    position: absolute;
-	display:none;
+/* Wishlist heart icon on hover */
+
+.product .product-body .product-btns div:hover .yith-wcwl-add-to-wishlist-button.yith-wcwl-add-to-wishlist-button--anchor svg.yith-wcwl-icon-svg {
+	 color: #D10024;
+}
+
+/* Compare button added by plugin */
+
+.woocommerce ul.products li.product .button {
+	display: none;
+}
+
+/* initial position of span labels : Wishlist + Compare only */
+
+.product .product-body .product-btns>a.green-button span,
+.yith-wcwl-add-to-wishlist-button__label {
+  position: absolute;
+	opacity:0;
+	transform: translate(0%, -50px);
+  width: 150px;
+  padding: 10px;
+  font-size: 12px;
+  line-height: 10px;
+  background: #1e1f29;
+  color: #FFF;
+  text-transform: uppercase;
+  z-index:10;
+  -webkit-transition: 0.2s all;
+  transition: 0.3s all;
+
+}
+
+
+/* add/browse wishlist, add to compare, quick view labels appear : uses div instead of a*/
+
+.product .product-body .product-btns div:hover span,
+.product .product-body .product-btns>a.green-button:hover span {
+	z-index:999;
+	opacity: 1;
 	transform: translate(0%, -40px);
-    width: 150px;
-    padding: 10px;
-    font-size: 12px;
-    line-height: 10px;
-    background: #1e1f29;
-    color: #FFF;
-    text-transform: uppercase;
-    z-index:10;
-    -webkit-transition: 0.2s all;
-    transition: 0.2s all;
-
 }
 
+/* Related products buttons on hover.  Greyish button appears*/
+
+.product .product-body .product-btns>a:hover,
+.product .product-body .product-btns div:hover,
 .product .product-body .product-btns>button:hover  {
 	background-color: #E4E7ED;
     color: #D10024;
     border-radius: 50%;
 }
 
-.product .product-body .product-btns>button:hover .yith-wcwl-add-to-wishlist-button__label {   
-	display: block;
-}
+/* Quick view + Add to Compare buttons: uses button tag */
+
 .product .product-body .product-btns>button {
     position: relative;
     width: 40px;
@@ -859,9 +894,69 @@ span#reply-title{
     transition: 0.2s all;
 }
 
+/* Heart icon for wishlist */
+
 .yith-wcwl-add-to-wishlist-button:not(.yith-wcwl-add-to-wishlist-button--themed-button).yith-wcwl-add-to-wishlist-button--added svg.yith-wcwl-add-to-wishlist-button-icon {
     color: #D10024;
 }
+
+
+/* Compare button wrapper 
+a.compare.green-button {
+    width: 40px;
+    height: 40px;
+    display: block;
+    align-content: center;
+}
+*/
+/* Compare label */
+a.green-button {
+		vertical-align: middle;
+    display: flex;
+    width: 40px;
+    /* flex-direction: column; */
+    align-items: center;
+	  justify-content:center;
+}
+/*
+a.compare.green-button span,
+.product .product-body .product-btns>button .tooltipp
+{
+	position: absolute;
+    bottom: 100%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -15px);
+    -ms-transform: translate(-50%, -15px);
+    transform: translate(-50%, -15px);
+    width: 150px;
+    padding: 10px;
+    font-size: 12px;
+    line-height: 10px;
+    background: #1e1f29;
+    color: #FFF;
+    text-transform: uppercase;
+    z-index: 10;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+    visibility: hidden;
+	  opacity: 0;
+}
+*/
+
+
+/* Add to Compare span pops up in related products buttons
+.product .product-body .product-btns>a.green-button:hover span {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(-50%, -15px);
+    -ms-transform: translate(-50%, -15px);
+    transform: translate(-50%, -50px);
+	font-weight: 400;
+	display: block;
+}
+
+
+/**** Wishlist page *****/
 
 table.wishlist_table tr {
 	width:100%;
@@ -910,6 +1005,8 @@ table.wishlist_table tr th.product-name {
 	display:none;
 }
 
+/* Wishlist add to cart + select options buttons */
+
 .wishlist_table .product-add-to-cart a {
    
     border: 2px solid transparent;
@@ -948,20 +1045,20 @@ table.wishlist_table tr th.product-name {
     border-color: #D10024;
 }
 
+#yith-woocompare .added_to_cart:hover, #yith-woocompare .button:hover,
 .wishlist_table .product-add-to-cart a.product_type_simple:hover {
-	
     background-color: #FFF;
     color: #D10024;
     border-color: #D10024;
    	padding-left:50px !important;
-		width: 200px;
+		width: 210px;
 }
 
-
-
+#yith-woocompare .button ~ i,
 .wishlist_table .product-add-to-cart a.product_type_simple ~ i, .product_type_variable ~ i {
 	opacity:0;
 }
+
 
 .wishlist_table .product-add-to-cart a.product_type_simple:hover ~ i {
 	opacity: 1;
@@ -991,4 +1088,97 @@ table.wishlist_table tr th.product-name {
     left: 50%;
     position: absolute;
 	  transform: translatex(-50%);
+}
+
+#yith-woocompare table .woocommerce-product-rating .star-rating {
+    overflow: hidden;
+    position: unset;
+    /* height: 1em; */
+    /* line-height: 1; */
+    width: 5.4em;
+    font-family: Woocommerce;
+    color: #D10024;  
+     transform: translateY(0) translateX(0%); 
+	margin: 0;
+}
+#yith-woocompare table .woocommerce-product-rating{
+	display: inline-flex;
+	vertical-align: middle;
+}
+
+table.compare-list tr.price del {
+	display: none;
+}
+
+#yith-woocompare .added_to_cart, #yith-woocompare .button
+{
+	  border: 2px solid transparent;
+    height: 40px;
+		width: 170px;
+    padding: 9px 25px !important;
+    background-color: #ef233c;
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 40px;
+		margin-left: 20px;
+	  font-size:14px;
+}
+
+#yith-woocompare .added_to_cart:hover, #yith-woocompare .button:hover {
+	width:190px;
+}
+
+ #yith-woocompare .product_type_simple:hover ~ i {
+	opacity: 1;
+	position: absolute;
+	left:30%;
+	top: 43%;
+	color: #D10024;
+	transform: translateY(-50%);
+}
+
+div.add_to_cart_wrap{
+	position:relative;
+}
+
+/* Show Options, View Cart buttons on hover */
+
+#yith-woocompare .button.product_type_variable:hover,
+#yith-woocompare .added_to_cart:hover {
+   	padding-left:25px !important;
+}
+
+div.dataTables_scrollBody {
+  scrollbar-width: thin;
+}
+
+/* compare table header */
+#yith-woocompare table.compare-list tr:nth-child(2) {
+	background:#D10024;
+	height: 100px !important;
+}
+
+/* compare table header product title */
+table.compare-list .product_title {
+	color: white;
+	font-weight: 500;
+	font-size: 18px;
+}
+
+.compare-close-btn {
+  position: absolute;
+  top: 0;
+  right: 50px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 54px;
+  cursor: pointer;
+  z-index: 9999;
+  transition: color 0.2s ease;
+}
+
+.compare-close-btn:hover {
+  color: #ff4b4b;
 }

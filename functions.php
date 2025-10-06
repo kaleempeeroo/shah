@@ -8,6 +8,7 @@ function shah_files() {
     wp_enqueue_script( 'bootstrap-js', get_theme_file_uri('/js/bootstrap.min.js'), '1.0', true);
     wp_enqueue_script('main', get_theme_file_uri('/js/main.js'), array('jquery'), '1.0', true);
     //wp_enqueue_script('nouislider', get_theme_file_uri('/js/nouislider.min.js'), array('jquery'), '1.0', true);
+    wp_enqueue_script('compare-close', get_theme_file_uri('/js/compare-close.js'), array(), '1.0.0', true);
     
     wp_enqueue_style( 'bootstrap-css', get_theme_file_uri('/css/bootstrap.min.css'));    
     wp_enqueue_style('custom-google-fonts', '//fonts.googleapis.com/css?family=Montserrat:400,500,700');
