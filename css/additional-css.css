@@ -1,19 +1,20 @@
 #product-price p {
-    display: inline-block;
-    font-size: 24px;
-    margin-top: 10px;
-    margin-bottom: 15px;
-    color: #D10024;
-		position:relative;
+  display: flex;
+  align-items: center; 
+	flex-wrap: wrap;
+  font-size: 24px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  color: #D10024;
+	position:relative;
+	gap: 10px;
+
 }
 
 .woocommerce-Price-currencySymbol{
 	padding-right:8px;
 }
 
-ins {
-	text-decoration: none;
-}
 .related .products ins {
 	color: blue;
 	border: 1px solid;
@@ -27,25 +28,39 @@ ins {
 .related .products del {
 	font-size:10px;
 	left:10px;
-	display:block;
 	
 }
+
+/* Single product excerpt old price strike through */
+
 #product-price del:first-child::before {
 	width:100%;
-	top:10px;
+	top:50%;
 	border-top: 1px solid #424a57;
 	content: '';
 	position:absolute;
 }
 
+ins {
+	text-decoration: none;
+}
+
+/* Single product excerpt price */
+#product-price ins {
+	order: 1;
+	text-decoration: none;
+}
+
+
+/* Single product excerpt old price */
+
 #product-price del:first-child {
 	text-decoration:none;
-	left:110px;
-	bottom:2.5px;
-	position:absolute;
-	font-size: 70% !important;
-  font-weight: 500 !important;
-  color: #424a57 !important;
+	position:relative;
+	font-size: 70%;
+  font-weight: 500;
+  color: #424a57;
+	order: 2;
 }
 
 .product-details 
@@ -158,7 +173,7 @@ span.posted_in a {
 
 .woocommerce div.product p.stock {
 	position:absolute;
-  top:147px;
+  top:145px;
 	left:220px;
 	text-transform: uppercase;
   font-weight: 700;
@@ -774,6 +789,23 @@ span#reply-title{
     margin-bottom: 10px;
 }
 
+/* old price */
+.product .product-body .product-price .product-old-price {
+	position: relative;	
+	text-decoration: none;
+	 /* Treat the element as a block that can have a width */
+	display: inline;
+}
+
+/* strike through old price */
+.product .product-body .product-price .product-old-price span:before {
+    top: 50%;
+	width: 100%;
+    border-top: 1px solid      #8D99AE;
+    content: '';
+    position: absolute;
+}
+
 .woocommerce .star-rating {
     float: right;
     overflow: hidden;
@@ -816,6 +848,14 @@ span#reply-title{
 
 /* Related products wishlist heart button wrapper */
 
+/* old price */
+.related.products .product .product-body .product-price .product-old-price {
+	width: fit-content;
+    display: block; 
+    margin: 0 auto;
+	  left: 0; 
+} 
+
 .yith-add-to-wishlist-button-block {
   width: 40px;
 	height: 40px;
@@ -846,6 +886,7 @@ span#reply-title{
 .product .product-body .product-btns>a.green-button span,
 .yith-wcwl-add-to-wishlist-button__label {
   position: absolute;
+  visibility: hidden;
 	opacity:0;
 	transform: translate(0%, -50px);
   width: 150px;
@@ -869,6 +910,7 @@ span#reply-title{
 	z-index:999;
 	opacity: 1;
 	transform: translate(0%, -40px);
+  visibility: visible;
 }
 
 /* Related products buttons on hover.  Greyish button appears*/
@@ -1054,12 +1096,56 @@ table.wishlist_table tr th.product-name {
 		width: 210px;
 }
 
+/* not needed */
 #yith-woocompare .button ~ i,
 .wishlist_table .product-add-to-cart a.product_type_simple ~ i, .product_type_variable ~ i {
 	opacity:0;
 }
+.woocommerce table.shop_table.wishlist_table tr td.product-add-to-cart i {
+	display: none;
+}
+
+/* Compare Add to Cart cart button icon */
+.wishlist_table .product-add-to-cart a.product_type_simple::before {
+	
+	 font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    content: "\f07a"; /* Unicode for the shopping cart icon */
+    
+    /* Position the icon off-screen to start */
+    position: absolute;
+	  top: 11px;
+    left: 30px; /* Adjust based on icon size and padding */
+    opacity: 0;
+	font: normal normal normal 14px/1 FontAwesome;
+}
+
+.wishlist_table .product-add-to-cart a.product_type_simple:hover::before{
+	opacity: 1;
+}
 
 
+.yith-woocompare-table-wrapper 
+a.product_type_simple::before {
+	 font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    content: "\f07a"; /* Unicode for the shopping cart icon */
+    
+    /* Position the icon off-screen to start */
+    position: absolute;
+	  top: 8px;
+    left: 20px; /* Adjust based on icon size and padding */
+    opacity: 0;
+	font: normal normal normal 14px/1 FontAwesome;
+    
+}
+
+/* Wishlist + Compare add to cart on hover */
+a.product_type_simple:hover::before {
+	opacity: 1;
+}
+
+/* Wishlist add to cart icon */
 .wishlist_table .product-add-to-cart a.product_type_simple:hover ~ i {
 	opacity: 1;
 	position: absolute;
@@ -1101,6 +1187,7 @@ table.wishlist_table tr th.product-name {
      transform: translateY(0) translateX(0%); 
 	margin: 0;
 }
+
 #yith-woocompare table .woocommerce-product-rating{
 	display: inline-flex;
 	vertical-align: middle;
@@ -1129,6 +1216,7 @@ table.compare-list tr.price del {
 	width:190px;
 }
 
+/* hover over simple product and cart icon appears 
  #yith-woocompare .product_type_simple:hover ~ i {
 	opacity: 1;
 	position: absolute;
@@ -1137,6 +1225,7 @@ table.compare-list tr.price del {
 	color: #D10024;
 	transform: translateY(-50%);
 }
+*/
 
 div.add_to_cart_wrap{
 	position:relative;
@@ -1149,6 +1238,7 @@ div.add_to_cart_wrap{
    	padding-left:25px !important;
 }
 
+/* scroll bar */
 div.dataTables_scrollBody {
   scrollbar-width: thin;
 }
@@ -1181,4 +1271,121 @@ table.compare-list .product_title {
 
 .compare-close-btn:hover {
   color: #ff4b4b;
+} 
+
+body.woocommerce-cart #yith-woocompare-preview-bar,
+body.woocommerce-checkout #yith-woocompare-preview-bar {
+  display: none !important;
 }
+
+/***************** Quick View ******************/
+
+/* Quick View shortcide button default text */
+.woosq-btn {
+    font-size: 0;
+}
+
+/* Related Products section eye button icon */
+.woosq-btn::before {
+    font-family: 'Font Awesome 5 Free'; /* Use the correct Font Awesome family */
+    font-weight: 900;
+    content: "\f06e"; /* Font Awesome 'eye' icon code */
+    font-size: 16px; /* Reset font size for the icon */
+    font-size: initial; /* Alternatively, use initial */
+}
+
+/* Optional: Add styles for the tooltip if desired */
+.woosq-btn .tooltipp {
+    visibility: hidden;
+    opacity: 0;
+    /* ... other styles for the tooltip ... */
+}
+
+/* tooltip appears on hover icon button */
+.woosq-btn:hover .tooltipp {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* modal popup width */
+.mfp-content .woocommerce div.product {
+    margin-bottom: 0;
+    position: relative;
+    margin: 0 auto;
+    width: 90%;
+}
+
+/* new price */
+.mfp-content ins bdi, 
+.mfp-content bdi {
+   font-size: 24px;
+   color: #D10024 !important;
+	 font-weight: 700;
+	 margin-left: 5px;
+}
+
+/* del strike through */
+.mfp-content del {
+	position: relative;
+	/* remove default strike through crossed line */
+	text-decoration: none !important;
+}
+
+/* old price */
+.mfp-content del bdi{
+	color:#424a57 !important;
+	font-size: 20px;
+	font-weight: 700;
+	margin-left: 0;
+	
+}
+
+/* old price strike through custom line */
+.mfp-content del::before {
+width: 100%;
+    top: 50%;
+    border-top: 1px solid      #424a57;
+    content: '';
+    position: absolute;
+}
+
+/* stock */
+.mfp-content p.stock {
+	left:250px !important;
+	top: 133px !important;
+}
+
+/* stars rating containing div */
+.mfp-content .woocommerce-product-rating {
+	position:relative;
+}
+
+/* stars rating */
+.mfp-content .woocommerce .star-rating {
+	top: 8px;
+	left: 200px;
+	position: absolute;
+}
+
+/* scroll bar */
+.ps-theme-wpc > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+	width: 10px !important;
+}
+
+/* modal popup scrollbar */
+.ps-theme-wpc > .ps-scrollbar-y-rail:hover > .ps-scrollbar-y {
+	background-color:grey !important;
+	transition: none !important;
+	
+}
+
+/* thumbnail image */
+
+.woosq-product > .product .thumbnails {
+	overflow: hidden !important;
+	box-sizing: border-box; /* Include padding and border in the element's total size */
+	max-height: 400px !important;
+	margin-top: 10px !important;
+
+	}
+

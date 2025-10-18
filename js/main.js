@@ -102,6 +102,7 @@
 	/////////////////////////////////////////
 
 	// Input number
+	/*
 	$('.input-number').each(function() {
 		var $this = $(this),
 		$input = $this.find('input[type="number"]'),
@@ -123,6 +124,80 @@
 			updatePriceSlider($this , value)
 		})
 	});
+*/
+/*
+const observer = new MutationObserver(function(mutations) {
+	console.log('MutationObserver triggered', mutations); // Add this line
+
+    mutations.forEach(function(mutation) {
+        // Check if the mutation added a new element.
+
+        if (mutation.addedNodes.length > 0) {
+            mutation.addedNodes.forEach(function(node) {
+                // Check if the added node is the modal or contains the modal content.
+                if (node.classList && node.classList.contains('mfp-content')) {
+                    // Re-initialize your script for the elements inside the modal.
+                    const qtyUpButtons = node.querySelectorAll('.qty-up');
+                    const qtyDownButtons = node.querySelectorAll('.qty-down');
+
+// Listen for clicks on the entire document instead of a specific element.
+qtyUpButtons.addEventListener('click', function(event) {
+    // Check if the clicked element is a quantity-up button.
+    if (event.target.classList.contains('qty-up')) {
+        const container = event.target.closest('.input-number');
+        const input = container.querySelector('input[type="number"]');
+        let currentValue = parseInt(input.value);
+        
+        if (!isNaN(currentValue)) {
+            input.value = currentValue + 1;
+        }
+    }
+
+    // Check if the clicked element is a quantity-down button.
+    if (event.target.classList.contains('qty-down')) {
+        const container = event.target.closest('.input-number');
+        const input = container.querySelector('input[type="number"]');
+        let currentValue = parseInt(input.value);
+
+        if (!isNaN(currentValue) && currentValue > 1) {
+            input.value = currentValue - 1;
+        } else if (currentValue === 1) {
+            input.value = 1;
+        }
+    }
+});
+	            }
+            });
+        }
+    });
+});
+
+/*
+// Start observing the body for changes.
+observer.observe(document.body, { childList: true, subtree: true });
+*/
+    $(document).on('click', '.qty-up, .qty-down', function(e) {
+	console.log('triggered');
+    if (e.target.classList.contains('qty-up')) {
+        const container = e.target.closest('.input-number');
+        const input = container.querySelector('input[type="number"]');
+        let currentValue = parseInt(input.value);
+        if (!isNaN(currentValue)) {
+            input.value = currentValue + 1;
+        }
+    }
+
+    if (e.target.classList.contains('qty-down')) {
+        const container = e.target.closest('.input-number');
+        const input = container.querySelector('input[type="number"]');
+        let currentValue = parseInt(input.value);
+        if (!isNaN(currentValue) && currentValue > 1) {
+            input.value = currentValue - 1;
+        } else if (currentValue === 1) {
+            input.value = 1;
+        }
+    }
+});
 
 	var priceInputMax = document.getElementById('price-max'),
 			priceInputMin = document.getElementById('price-min');

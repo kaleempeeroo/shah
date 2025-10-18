@@ -510,7 +510,7 @@ if ( ! defined( 'YITH_WCWL' ) ) {
 							?>
 							<?php if ( $show_add_to_cart && $item->is_purchasable() && 'out-of-stock' !== $item->get_stock_status() ) : ?>
 								<?php woocommerce_template_loop_add_to_cart( array( 'quantity' => $show_quantity ? $item->get_quantity() : 1 ) ); ?>
-								<i class="fa fa-shopping-cart"></i>
+								
 							<?php endif ?>
 <?php
 

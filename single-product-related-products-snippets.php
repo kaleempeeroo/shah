@@ -50,7 +50,7 @@ function related_products_() {
     $content = ob_get_clean();
     if($content) { $output .= $content; }
 
-    echo '<div class="clear"></div><h1>ho</h1>' . $output;
+    echo $output;
 }
 
 remove_action ('woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail',10);
@@ -132,19 +132,66 @@ add_action ('woocommerce_after_shop_loop_item_title', 'open_product_btns_div',12
 function open_product_btns_div() {
 ?>
 	<div class="product-btns">		
-		<?php echo  do_shortcode('[yith_wcwl_add_to_wishlist]'); ?>
-		<?php echo  do_shortcode('[custom_compare class="green-button"]'); ?>
+	<?php echo do_shortcode('[yith_wcwl_add_to_wishlist]'); ?>
+	<?php echo do_shortcode('[custom_compare class="green-button"]'); ?>
+<?php
+			// Get the ID of the current post (product).
+			//$product_id = get_the_ID();
 
+			// Construct the full shortcode string with the dynamic ID.
+			//$shortcode_string = '[woosq id="' . $product_id . '"]';
 
+			// Process the shortcode and echo the result.
+			//echo do_shortcode( $shortcode_string );
+			//function add_woosq_mybutton() {
+				
+				if ( is_product() ) {
+					  $product_id = get_the_id();
+        			    $button_text = 'Quick View';
+						// Use the WooCommerce hook to add the button
+						//echo 'ho<a href="#woosq-product-' . esc_attr($product_id) . '" class="button woosq-btn" rel="nofollow">Quick View</a>' ;
+            // Use the WooCommerce hook to add the button
+            //echo '<a href="#woosq-product-' . esc_attr($product_id) . '" class="button woosq-btn" rel="nofollow">' . esc_html($button_text) . '</a>';
+        
+					
+//echo '<a href="#woosq-product-' . $product_id . '" class="quick-view" rel="nofollow">        <span>Add To Compare</span>        <i class="fa fa-exchange"></i>    </a>';
+					//$product_id = get_the_id();
+					$shortcode_string = '[woosq id="' . $product_id . '"]';
+					//$button_output = '<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp"><i class="fa fa-eye"></i></span></button>';
+					//echo $button_output;
+					echo do_shortcode( $shortcode_string ) ;
+}
+			//}
+			//add_shortcode('custom_woosq_button', 'add_woosq_mybutton');
+								  
+				
+		?>
+<!--
 		<button class="quick-view">
 			<i class="fa fa-eye"></i>
 			<span class="tooltipp">Quick View</span>
 		</button>
-		
+-->	
 	</div>
 
 <?php
 }
+
+/**
+ * Adds a custom quick view button to WooCommerce product pages.
+ */
+function my_theme_add_custom_woosq_button() {
+    if (is_product()) {
+        global $product;
+        if ($product) {
+            $product_id = $product->get_id();
+            $button_text = 'Quick View';
+            // Use the WooCommerce hook to add the button
+            echo '<a href="#woosq-product-' . esc_attr($product_id) . '" class="button woosq-btn" rel="nofollow">' . esc_html($button_text) . '</a>';
+        }
+    }
+}
+add_action('woocommerce_after_shop_loop_item_title', 'my_theme_add_custom_woosq_button',12);
 	
 	
 add_action ('woocommerce_after_shop_loop_item_title', 'close_div',15);
@@ -167,5 +214,30 @@ function my_template_loop_add_to_cart ()
 	echo '<div style="background-color:green">yo</div>';
 }
 
+
+/**
+ * Add a tooltip span to the woosq Quick View button.
+ *
+ * @param string $html The original button HTML.
+ * @param int $product_id The ID of the current product.
+ * @return string Modified HTML with a tooltip span.
+ */
+function my_theme_add_woosq_tooltip($html, $product_id) {
+    // Check if we are in the product loop (like the shop or category pages)
+    // The shortcode output may differ on single product pages.
+   // if ( is_shop() || is_product_category() || is_product_tag() ) {
+        // Find the text "Quick view" and wrap it in your tooltip span
+        $modified_html = str_ireplace(
+            'Quick view',
+            '<span class="tooltipp">Quick View</span>',
+            $html
+        );
+        return $modified_html;
+    // }
+    
+    // Return original HTML for all other pages
+   // return $html;
+}
+add_filter('woosq_button_html', 'my_theme_add_woosq_tooltip', 20, 2);
 
 ?>
