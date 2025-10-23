@@ -1389,3 +1389,77 @@ width: 100%;
 
 	}
 
+/** Related products Add to Cart pop down to each product in card */
+
+/* Ensure the parent li has positioning context and clips the hidden bar */
+ul.products li {
+    position: relative;
+	
+}
+
+/* add to cart drop down */
+.product .add-to-cart {
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  bottom: 0px;
+  padding: 15px;
+  background: #1e1f29;
+  text-align: center;
+  -webkit-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  transform: translateY(100%);
+/*  -webkit-transition: 0.9s all;*/
+  z-index: 2;
+	height: 0%;
+	opacity: 0;
+  visibility: hidden;
+	
+}
+
+/* add to cart drop down appears on hover */
+
+ul.products li:hover .add-to-cart {
+  -webkit-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  transform: translateY(100%);
+	 opacity: 1;
+  visibility: visible;
+	-webkit-transition: 0.9s height 0.9s visibility;
+	transition: 0.9s height 0.9s visibility;
+	height: 70px;	
+	
+}
+
+.product .add-to-cart .add-to-cart-btn {
+  position: absolute;
+  border: 2px solid transparent;
+  height: 40px;
+	width: 170px;
+  padding: 0 30px;
+  background-color: #ef233c;
+  color: #FFF;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 40px;
+	display: block;
+	bottom:0px;
+	 left: 50%; 
+  transform: translateX(-50%);
+  
+}
+/* 4. Ensure the button is always visible within its parent */
+ul.products li:hover .add-to-cart-btn {
+    /* No animation needed here, it should just be visible with its parent */
+    /* height:40px; (This line is fine but not strictly necessary) */
+	bottom: 20%;
+	visibility: visible;
+	width:200px;
+}
+
+/* fa cart icon */
+ul.products .add-to-cart-btn > i
+{
+	top:-2px !important;
+	left: 10px !important; 
+}

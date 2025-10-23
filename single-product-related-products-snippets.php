@@ -60,7 +60,6 @@ add_action ('woocommerce_before_shop_loop_item_title', 'open_template_loop_produ
 function open_template_loop_product_thumbnail () {
 	?>
 
-		<div class="product">
 			<div class="product-img">
 
 				
@@ -80,8 +79,8 @@ function close_template_loop_product_thumbnail () {
 ?>
 			<div class="product-label">
 					<span> LABEL </span>
-				</div>
-			</div>
+				</div> <!-- close div product label -->
+			</div> <!-- close div product img -->
 			<div class="product-body">
 				<p class="product-category"> 
 					<?php 
@@ -123,7 +122,7 @@ add_action('woocommerce_after_shop_loop_item_title', 'close_div_rating', 6);
 	
 	function close_div_rating() {
 ?>
-		</div>
+		</div> <!-- close div product rating -->
 <?php
 }
 
@@ -172,13 +171,15 @@ function open_product_btns_div() {
 			<span class="tooltipp">Quick View</span>
 		</button>
 -->	
-	</div>
+	</div> <!-- close buttons div -->
 
 <?php
 }
 
 /**
  * Adds a custom quick view button to WooCommerce product pages.
+ * This function does not seem to be doing anything but adding 
+ * another Quick View button alrady defined above.
  */
 function my_theme_add_custom_woosq_button() {
     if (is_product()) {
@@ -191,21 +192,23 @@ function my_theme_add_custom_woosq_button() {
         }
     }
 }
-add_action('woocommerce_after_shop_loop_item_title', 'my_theme_add_custom_woosq_button',12);
+//add_action('woocommerce_after_shop_loop_item_title', 'my_theme_add_custom_woosq_button',12);
 	
 	
 add_action ('woocommerce_after_shop_loop_item_title', 'close_div',15);
 
 	function close_div() {
 ?>
-			
+	
+</div>  <!-- closing product body div -->
 
-</div>
 		<?php
 }
 
 
 remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart' );
+
+/** This adds a div after the related product-body div box.
 add_action( 'woocommerce_after_shop_loop_item', 'my_template_loop_add_to_cart' );
 //remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close');
 	
@@ -213,7 +216,7 @@ function my_template_loop_add_to_cart ()
 {
 	echo '<div style="background-color:green">yo</div>';
 }
-
+*/
 
 /**
  * Add a tooltip span to the woosq Quick View button.
@@ -238,6 +241,8 @@ function my_theme_add_woosq_tooltip($html, $product_id) {
     // Return original HTML for all other pages
    // return $html;
 }
+
+// // add tooltip to Quick View button
 add_filter('woosq_button_html', 'my_theme_add_woosq_tooltip', 20, 2);
 
 ?>
