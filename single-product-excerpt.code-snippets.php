@@ -1,95 +1,274 @@
-<?php
+/* 
+   Single Product Excerpt section.
+   Removing defaults Add to Cart, 
+   price, rating and title.
+*/
+
 remove_action( 'woocommerce_variable_add_to_cart', 'woocommerce_variable_add_to_cart', 30 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
-////do_action( 'woocommerce_product_after_tabs' );
-//add_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
-//add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
-//add_action( 'woocommerce_before_single_product', 'woocommerce_breadcrumb', 15, 0 );
-//add_action( 'woocommerce_before_single_product', 'heyy', 13, 0 );
 
-function heyy() {
-  echo 'heyo';
-}
+/* 
+   Single Product Excerpt section opening wrapper DIV hook. 
+   woocommerce_single_product_summary, 
+   PRIORITY = 2 
+*/
 
+add_action( 'woocommerce_single_product_summary', 'open_excerpt_div', 2 );
 
-add_action( 'woocommerce_single_product_summary', 'open_excerpt_section_div', 2 );
-function open_excerpt_section_div () {
+/* Single Product Excerpt section opening wrapper DIV */
+
+function open_excerpt_div () {
 ?>
-<div class="product-details" style="clear:both;z-index:10;position:relative;border:1px solid green;margin-left:50px;"> open product details
+	<!-- Excerpt opening wrapper DIV -->	
+	<div class="product-details">
 <?php
 }
+
+/* Add Product title before ratings.
+   woocommerce_single_product_summary, 
+   PRIORITY = 5
+*/
+
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
+
+
+/* Rating DIV hook. 
+   woocommerce_single_product_summary, 
+   PRIORITY = 6
+*/
+
+add_action( 'woocommerce_single_product_summary', 'rating_div', 6 );
+
+function rating_div() {
+?> 		
+	<!-- open excerpt rating DIV -->			
+	<div class="excerpt-rating">
+		 
+		<?php 	
+		 global $product;
+		 $average_rating = $product->get_average_rating();
+		 $review_count = $product->get_review_count();
+	     $reviews_url = get_permalink($product->get_id()) . '#tab-reviews';
+		 // Output the rating HTML
+		 echo wc_get_rating_html($average_rating, $review_count); 		
+		?>
+		
+		<a class="review-link" href="<?php echo esc_url($reviews_url); ?>">
+    		<?php echo esc_html($review_count); ?> Review(s) | Add your review
+		</a>	
+	
+	</div>		
+	<!-- close excerpt rating -->						
+<?php
+}
+
+/* Product Price (Old/New) opening DIV hook. 
+   woocommerce_single_product_summary, 
+   PRIORITY = 7 
+*/
+
 add_action( 'woocommerce_single_product_summary', 'open_price_div', 7 );
+
+/* Excerpt section price, opening wrapper DIV */
 
 function open_price_div() {
 ?>
-	<!-- Product details -->				 
-						
+	<!-- Product price details -->				 						
 	<div id="product-price">	
 		<h3 class="product-price">
 <?php
 }
+
+/*
+	Outputs price (old/new) hook.
+	woocommerce_single_product_summary, 
+    PRIORITY = 10 
+	
+*/
+
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
-add_action( 'woocommerce_single_product_summary', 'close_price_div', 11 );
+
+/*
+	Closes price </h3>.
+	woocommerce_single_product_summary, 
+    PRIORITY = 11 
+*/
+
+add_action( 'woocommerce_single_product_summary', 'close_price_h3', 11 );
+function close_price_h3() {
+	echo '</h3>';
+}
+
+/* 
+	Outputs stock after price. 
+	woocommerce_single_product_summary, 
+   	PRIORITY = 12
+
+
+add_action( 'woocommerce_single_product_summary', function() {
+   global $product;
+   if ( $product->is_type('variable') ) {
+        // If it's a variable product, don't display stock initially,
+        // otherwise it outputs total stock for variable product like 100.
+        // The stock will be displayed dynamically by WooCommerce's JavaScript
+        // echo '<p class="stock-info initial-stock-message">Select an option to see stock.</p>';
+    } else {
+        // If it's a simple product, display the stock as normal
+        //
+        //
+        //echo wc_get_stock_html( $product );
+    }
+}, 12 );
+*/
+
+/* 
+   Excerpt section price, closing wrapper DIV.
+   Adds stock DIV before closing wrapper DIV.
+   woocommerce_single_product_summary, 
+   PRIORITY = 13
+*/
+
+add_action( 'woocommerce_single_product_summary', 'close_price_div', 13 );
+
 function close_price_div() {	
-?>					
-		<del class="product-old-price"></del></h3>
+	global $product;
+	// if simple product 
+	if ( !$product->is_type('variable') ) {
+		// if in stock
+		if ( $product->get_stock_quantity() > 0 ) {
+		  	// Wrap the standard "In Stock" message in a custom div
+		 	echo '<div class="custom-stock">' . $product->get_stock_quantity() .' in stock</div>';
+		}
+		else {
+			echo '<div class="custom-stock">Out of stock</div>';
+		}
+    }
+	else {
+		// It is a variable product. 
+		// main.js will handle this div and output stock.
+		echo '<div class="custom-stock"></div>';
+	}
+?>			
 	</div>
-					
+	<!-- close price div  -->					
 <?php
 }
 
-// test div -- big outer
-//add_action( 'woocommerce_before_single_product', 'open_div', 15 );
-// excerpt div
+/* 
+   Single Product excerpt description summary hook. 
+   woocommerce_single_product_summary, 
+   PRIORITY = 28
+*/
 
-remove_action( 'woocommerce_single_product_summary', 'title_open', 3 );
-function title_open() {	
-	?><div id="title">title open
+add_action( 'woocommerce_single_product_summary', 'excerpt', 28 );
 
-	<?php
-}
-remove_action( 'woocommerce_single_product_summary', 'title', 4 );
-function title() {
-	?>
-	<h2 class="product-name">
+function excerpt () {
+?>
+<p>
+	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+	Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</p>
 <?php
 }
-remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 7 );	
 
-remove_action( 'woocommerce_single_product_summary', 'title_close', 8 );
-function title_close() {
-	?> </h2></div> title close
+// Do any actions needed before form
+
+do_action( 'woocommerce_before_add_to_cart_form' );
+
+/*
+    Before hook styling the options (SIZE,COLOR) combo dropdowns. 
+	woocommerce_variable_add_to_cart,
+	PRIORITY = 29.
+*/ 
+
+add_action( 'woocommerce_variable_add_to_cart', 'woocommerce_before_variable_add_to_cart', 29 );
+
+function woocommerce_before_variable_add_to_cart() {
+?>
+	<!-- opening product options DIV -->
+	<div class="product-options">			
 <?php
 }
 	
+/* 
+   Single Product Add to Cart for variable product section hook.
+   Seems to work with simple product as well.   
+   woocommerce_variable_add_to_cart, 
+   PRIORITY = 30. 
+*/
+
+add_action( 'woocommerce_variable_add_to_cart', 'woocommerce_variable_add_to_cart', 30 );
 
 
-add_action( 'woocommerce_single_product_summary', 'open_excerpt_div', 6 );
+/* 
+   Single Product before quantity input hook inside add to cart form. 
+   Outputs a opening wrapper DIV.quantity.
+   Outputs a table with Qty label, input boxes for amount and Add to Cart button.
+   woocommerce_before_quantity_input_field, 
+   PRIORITY = 10
+*/
 
-function open_excerpt_div() {
+add_action( 'woocommerce_before_quantity_input_field', 'before_quantity_input_field', 10 );
+
+function before_quantity_input_field() {
 	?>
-							<div>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
+	<!-- Quantity label DIV -->
+	<div class="qty-label" style="border=1px solid yellow;">
+		<table id="input-number">
+			<tr>
+				<th class="label"><label>Qty</label></th>
+				<td></td>
+				<td style="padding-left:2px;">	
+					<div class="input-number">
+						<input type="number" value=1>
+						<span class="qty-up">+</span>
+						<span class="qty-down">-</span>
 								</div>
-								<a class="review-link" href="#">10 Review(s) | Add your review</a>
+				</td>
+				<td style="padding-left:25px;">								 
+					<button class="add-to-cart-btn">
+						<i class="fa fa-shopping-cart"></i> add to cart
+					</button>
+				 </td>
+				</tr>
+			</table>
 							</div>
-					
-					
-		
+	<!-- Quantity label DIV close -->
 <?php
 }
+
+/*
+    After hook styling the options (SIZE,COLOR) combo dropdowns. 
+	woocommerce_variable_add_to_cart,
+	PRIORITY = 40.
+*/ 
+
+add_action( 'woocommerce_variable_add_to_cart', 'woocommerce_after_variable_add_to_cart', 40 );
+
+function woocommerce_after_variable_add_to_cart () {
+	echo '</div> <!-- closing product options DIV -->';
+}
+
+// Do any actions needed after add to cart button is displayed
+
+do_action( 'woocommerce_after_add_to_cart_button' );
+
+// Do any actions needed after form
+
+do_action( 'woocommerce_after_add_to_cart_form' );
+
+/* 
+   Single Product Excerpt section closing wrapper DIV hook. 
+   woocommerce_single_product_summary, 
+   PRIORITY = 45 
+*/
 
 add_action( 'woocommerce_single_product_summary', 'close_excerpt_div', 45 );
 
 function close_excerpt_div(){
-	
+	// social buttons
 	echo do_shortcode('[insertrankyasharebuttonshortcode]');
 
 	?>
@@ -101,106 +280,15 @@ function close_excerpt_div(){
 		<li><a href="#"><i class="fa fa-envelope"></i></a></li>
 	</ul>
 
-</div>close product details
+</div>		
+<!-- Excerpt closing wrapper DIV -->	
 <?php
 }
 
-//add_action( 'woocommerce_after_single_product_summary', 'clear_tabs', 10 );
-
-function clear_tabs() {
-	?>
-	open tabs div
-	
-	<div style="height:200px; width:100%; clear:both;"></div>
-	
-	close tabs div
-<?php	
-}
+/* 
+   Single Product tabs section hook. 
+   woocommerce_after_single_product_summary, 
+   PRIORITY = 10 
+*/
 
 add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
-add_action( 'woocommerce_single_product_summary', 'excerpt', 28 );
-
-do_action( 'woocommerce_before_add_to_cart_form' );
-
-add_action( 'woocommerce_variable_add_to_cart', 'woocommerce_before_variable_add_to_cart', 29 );
-add_action( 'woocommerce_variable_add_to_cart', 'woocommerce_variable_add_to_cart', 30 );
-add_action( 'woocommerce_variable_add_to_cart', 'woocommerce_after_variable_add_to_cart', 40 );
-/*
-
-add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
- 
-remove_action( 'woocommerce_simple_add_to_cart', 'woocommerce_simple_add_to_cart', 29 );
-remove_action( 'woocommerce_grouped_add_to_cart', 'woocommerce_grouped_add_to_cart', 30 );
-
-add_action( 'woocommerce_before_add_to_cart_button', 'woocommerce_after_variable_add_to_cart',41 );
-
-////
-
-remove_action( 'woocommerce_external_add_to_cart', 'woocommerce_external_add_to_cart', 30 );
-remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation', 10 );
-add_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add_to_cart_button', 20 );
-*/
-//remove_action( 'woocommerce_before_quantity_input_field' );
-//remove_action( 'woocommerce_after_quantity_input_field' );
-do_action( 'woocommerce_after_add_to_cart_button' );
-do_action( 'woocommerce_after_add_to_cart_form' );
-add_action( 'woocommerce_before_quantity_input_field', 'before_quantity_input_field', 10 );
-function before_quantity_input_field() {
-	echo 'before';
-	?>
-<div class="qty-label" style="border=1px solid;">
-<table id="input-number">
-	<tr>
-		<th class="label"><label>Qty</label></th>
-		<td></td>
-		<td style="padding-left:2px;">	<div class="input-number">
-										<input type="number" value=1>
-										
-										<span class="qty-up">+</span>
-										<span class="qty-down">-</span>
-	
-									</div>
-		</td>
-		<td style="padding-left:25px;">
-			                                 <button class="add-to-cart-btn">
-                                                <i class="fa fa-shopping-cart"></i> add to cart
-                                              </button>
-         </td>
-		</tr>
-	</table>
-	
-	
-</div>
-                                            	
-                                              
-                                            
-                     
-                                           
-<?php
-}
-add_action( 'woocommerce_after_quantity_input_field', 'after_quantity_input_field', 10 );
-function after_quantity_input_field() {
-echo 'after';
-	?>
-	<?php
-}
-
-function excerpt () {
-	the_title();
-?>
-	hey
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-<?php }
-
-function woocommerce_before_variable_add_to_cart() {
-?>
-							<div class="product-options">
-								heyy
-			
-<?php }
-
-
-function woocommerce_after_variable_add_to_cart () {
-	echo 'eeehey</div>';
-}
-

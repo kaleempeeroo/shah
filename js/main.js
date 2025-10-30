@@ -11,6 +11,19 @@
 	$('.cart-dropdown').on('click', function (e) {
 		e.stopPropagation();
 	});
+ 
+	// Inserts stock HTML from woocommerce output inside our
+	// .custom-stock DIV in single product excerpt Price DIV 
+	// to display price inline with price
+	$('form.variations_form').on('show_variation', function(event, variation){
+        const stock_html = variation.availability_html;
+        $('.custom-stock').html(stock_html); // Replace your custom container
+    });
+
+	 // When "Clear options" is clicked, empty the custom stock div
+    $('form.variations_form').on('reset_data', function(){
+        $('.custom-stock').html(''); // clears the content
+    });
 
 	/////////////////////////////////////////
 

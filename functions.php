@@ -4,7 +4,7 @@ function shah_files() {
     
     wp_enqueue_script('slick', get_theme_file_uri('/js/slick.min.js'), array('jquery'), '1.0', true   );
     wp_enqueue_script('custom-zoom', get_theme_file_uri('/js/jquery.zoom.min.js'), 'JQuery', 1.5, TRUE);
-    wp_enqueue_script('ho', get_theme_file_uri('/js/ho.js'), array('jquery'), '1.0', true);
+    //wp_enqueue_script('ho', get_theme_file_uri('/js/ho.js'), array('jquery'), '1.0', true);
     wp_enqueue_script( 'bootstrap-js', get_theme_file_uri('/js/bootstrap.min.js'), '1.0', true);
     wp_enqueue_script('main', get_theme_file_uri('/js/main.js'), array('jquery'), '1.0', true);
     //wp_enqueue_script('nouislider', get_theme_file_uri('/js/nouislider.min.js'), array('jquery'), '1.0', true);
@@ -29,11 +29,11 @@ add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_rela
 //add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
 
 // changing WooCommerce Single product title style here instead of using snippets in admin dashboard.
-add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
-add_action( 'woocommerce_single_product_summary', 'sgl_template_single_title', 5 );
-function sgl_template_single_title() {
-   the_title( '<h1 class="product-name">', '</h1>' );
-}
+//add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
+//add_action( 'woocommerce_single_product_summary', 'sgl_template_single_title', 5 );
+//function sgl_template_single_title() {
+//   the_title( '<h1 class="product-name">', '</h1>' );
+//}
 
 /* 
 WordPress optimization specialist = RankYa
@@ -229,5 +229,49 @@ function rjs_comments_walker() {
     </li>
 
 <?php 
+if ( ! function_exists( 'my_theme_handle_review_tab_scroll' ) ) {
+
+function my_theme_handle_review_tab_scroll() {
+echo '<script>console.log("My script is running!");</script>';
+
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                const reviewsHash = '#tab-reviews';
+
+                function handleReviewsScroll() {
+                    if (window.location.hash === reviewsHash) {
+                        const tabLink = $('ul.wc-tabs a[href="' + reviewsHash + '"]');
+
+                        if (tabLink.length) {
+                            // Trigger the click event to open the tab
+                            tabLink.trigger('click');
+
+                            // Wait for the tab to open and then scroll smoothly
+                            setTimeout(function() {
+                                const tabContainer = $('.woocommerce-tabs');
+                                if (tabContainer.length) {
+                                    $('html, body').animate({
+                                        scrollTop: tabContainer.offset().top - 50 // Adjust offset
+                                    }, 800);
+                                }
+                            }, 500); // 500ms delay to ensure the tab is open
+                        }
+                    }
+                }
+
+                // Handle initial page load with the hash
+                handleReviewsScroll();
+
+                // Handle clicks on same-page anchor links
+                $(window).on('hashchange', function() {
+                    handleReviewsScroll();
+                });
+            });
+        </script>
+        <?php
+}
+}
+add_action('wp_footer', 'my_theme_handle_review_tab_scroll');
 
 }
