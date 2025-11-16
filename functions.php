@@ -275,3 +275,109 @@ echo '<script>console.log("My script is running!");</script>';
 add_action('wp_footer', 'my_theme_handle_review_tab_scroll');
 
 }
+
+function my_latest_products_shortcode($atts) {
+    $atts = shortcode_atts( array(
+        'limit' => 6,
+    ), $atts, 'latest_products' );
+
+    $args = array(
+        'post_type'      => 'product',
+        'posts_per_page' => intval($atts['limit']),
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+    );
+
+    $loop = new WP_Query($args);
+
+    ob_start();
+
+    if ($loop->have_posts()) {
+        while ($loop->have_posts()) {
+            $loop->the_post();
+            wc_get_template_part('content', 'product');
+        }
+    } else {
+        echo '<p>No latest products found.</p>';
+    }
+
+    wp_reset_postdata();
+    return ob_get_clean();
+}
+
+add_shortcode('latest_products', 'my_latest_products_shortcode');
+
+function custom_top_selling_products_slider_shortcode($atts) {
+    ob_start();
+
+    $atts = shortcode_atts(array(
+        'limit' => 4,
+    ), $atts, 'top_selling_products');
+
+    $args = array(
+        'post_type'      => 'product',
+        'posts_per_page' => $atts['limit'],
+        'meta_key'       => 'total_sales', // This meta key holds the sales data
+        'orderby'        => 'meta_value_num', // Sort by the numeric sales value
+        'order'          => 'DESC', // Sort in descending order
+    );
+
+    $products = new WP_Query($args);
+
+    if ($products->have_posts()) {
+        while ($products->have_posts()) {
+            $products->the_post();
+            global $product;
+            wc_get_template_part('content', 'product');
+        }
+    }
+    wp_reset_postdata();
+
+    return ob_get_clean();
+}
+add_shortcode('top_selling_products_slider', 'custom_top_selling_products_slider_shortcode');
+
+function custom_top_selling_category_products_slider_shortcode($atts) {
+    ob_start();
+
+    // Define the default attributes, including a new 'category_slug'
+    $atts = shortcode_atts(array(
+        'limit' => 3,
+        'category_slug' => '', // New attribute for the category slug
+    ), $atts, 'top_selling_products_slider');
+
+    // Build the query arguments
+    $args = array(
+        'post_type'      => 'product',
+        'posts_per_page' => $atts['limit'],
+        'meta_key'       => 'total_sales',
+        'orderby'        => 'meta_value_num',
+        'order'          => 'DESC',
+    );
+
+    // Add a taxonomy query if a category slug is provided
+    if (!empty($atts['category_slug'])) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => 'product_cat',
+                'field'    => 'slug',
+                'terms'    => $atts['category_slug'],
+            ),
+        );
+    }
+
+    $products = new WP_Query($args);
+
+    if ($products->have_posts()) {
+        while ($products->have_posts()) {
+            $products->the_post();
+            global $product;
+            wc_get_template_part('content', 'product-slider');
+        }
+    }
+    wp_reset_postdata();
+
+    return ob_get_clean();
+}
+
+add_shortcode('top_selling_category_products_slider', 'custom_top_selling_category_products_slider_shortcode');
