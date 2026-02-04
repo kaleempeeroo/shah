@@ -1618,4 +1618,119 @@ span.onsale {
 	display: inline-block;
 	position: absolute;
 }
-/* rebasing */
+
+
+.section-paragraph {
+	float: left;
+	max-width: 500px;
+	border:1px solid;
+	vertical-align: middle;
+}
+
+.section-image {
+	float: right;
+  max-width: 500px;
+  display: inline-block;
+	vertical-align: middle;
+}
+
+.description-footer{
+	clear: both;
+}
+
+
+/*******************************************  
+
+Shopping Cart page.
+
+********************************************/
+
+/* 
+	Checkout button DIV	
+*/
+
+.wc-block-cart__submit-container .wc-block-components-button__text {
+	
+	background-color: #D10024 !important;
+	height: 40px;
+	position: relative;
+	height: 40px;
+  line-height: 40px;
+}
+
+/* 
+	Checkout button DIV left side 	arc 	
+*/
+
+.wc-block-cart__submit-container .wc-block-components-button__text::before {
+	width: 33%;
+	height: 40px;
+	content: '';
+	border-radius: 50%;
+	background-color: #D10024;
+	position: absolute;
+	left: -20px;
+	z-index: -10;
+}
+
+
+/* 
+	Checkout button DIV right side 	arc 	
+*/
+
+.wc-block-cart__submit-container .wc-block-components-button__text::after {
+	width: 33%;
+	height: 40px;
+	content: '';
+	border-radius: 50%;
+	background-color: red;
+	position: absolute;
+	right: -20px;
+	z-index: -10;
+}
+
+/* 
+	Change the 'Cart totals' title 
+*/
+
+.wp-block-woocommerce-cart-order-summary-block::before {
+  content:'';
+	background-color: #D10024;
+	width: 33%;
+	height: 40px;
+	display: inline-block;
+	position: absolute;
+	z-index: -100;
+}
+
+/* 
+	Change the 'Cart totals' title 
+*/
+
+.wc-block-cart__totals-title {
+	color: #fff !important;
+	padding-left: 2px !important;	
+}
+
+
+/* Cart header */
+
+.wc-block-cart__submit-container .wc-block-components-button__text,
+table.wc-block-cart-items thead tr , table.wc-block-cart-items .wc-block-cart-items__header .wc-block-cart-items__header-product{
+	background-color: #D10024;
+	color: #fff;
+}
+
+/* Cart Product header */
+
+table.wc-block-cart-items thead tr span {
+	margin-left: 10px;
+}
+
+/* Cart Details header*/
+
+table.wc-block-cart-items .wc-block-cart-items__header .wc-block-cart-items__header-product{
+	visibility: visible;
+	padding-left: 10px;
+	background-color: #D10024 !important;
+}
