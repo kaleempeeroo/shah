@@ -1734,3 +1734,34 @@ table.wc-block-cart-items .wc-block-cart-items__header .wc-block-cart-items__hea
 	padding-left: 10px;
 	background-color: #D10024 !important;
 }
+/* Header Search textbox */
+
+.header-search form .input-select {
+    margin-top: 1px;
+}
+
+
+.no-hover-allowed {
+	pointer-events: none;
+}
+
+
+.product .product-body .product-rating::before {
+	content: "sssss";
+  color: #cfc8d8;
+  float: left;
+  top: 0;
+  left: 50%;
+	transform: translatex(-50%);
+  position: absolute;
+	font-family: Woocommerce;
+	font-size: .95em;
+	background-color:#fff;
+	z-index:1;
+	line-height:1.2em;
+	
+}
+
+li.product .star-rating {
+	line-height: 1em;
+}

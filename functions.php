@@ -381,3 +381,51 @@ function custom_top_selling_category_products_slider_shortcode($atts) {
 }
 
 add_shortcode('top_selling_category_products_slider', 'custom_top_selling_category_products_slider_shortcode');
+
+
+/* Add a JS script in footer so that Wishlist updates automatically as products are added using AJAX 
+
+    It sends an AJAX request to the server at the specified URL using a standard WordPress file (admin-ajax.php).
+    The format of the URL is such that it is independent of the site url structure, kind of a constant.
+    The action represents a specific ID of the request contained at the server DB of the question we are asking it.
+    Return the response in JSON, ie, count = x;
+    If the response is successful, replace the HTML element for the counter => .wishlist-count-top with the new value.
+    AJAX refreshes only this HTML element instead of the whole page reload.
+    Enable AJAX in YITH settings in WP dashboard.
+*/
+
+add_action( 'wp_footer', 'yith_wishlist_ajax_update_script' );
+function yith_wishlist_ajax_update_script() {
+    ?>
+    <script type="text/javascript">
+        jQuery(document).on('added_to_wishlist removed_from_wishlist', function() {
+            var counter = jQuery('.wishlist-count-top');
+            jQuery.ajax({
+                url: yith_wcwl_l10n.ajax_url,
+                data: { action: 'yith_wcwl_update_wishlist_count' },
+                dataType: 'json',
+                success: function(data) {
+                    counter.html(data.count);
+                }
+            });
+        });
+    </script>
+    <?php
+}
+
+/* Uses Woocommerce in built Fragments to refresh HTML part given by the class .cart-count-top, instead of page reload
+   YITH Wishlist does not use this feature and needs JQuery to refresh, as above.
+   Enable AJAX in WooCommerce settings in WP dashboard.
+*/
+
+// 1. Ensure the cart count updates via AJAX
+add_filter( 'woocommerce_add_to_cart_fragments', 'refresh_cart_count_fragment' );
+
+function refresh_cart_count_fragment( $fragments ) {
+    ob_start();
+    ?>
+    <span class="cart-count-top"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+    <?php
+    $fragments['span.cart-count-top'] = ob_get_clean();
+    return $fragments;
+}

@@ -62,10 +62,19 @@
 							<div class="header-ctn">
 								<!-- Wishlist -->
 								<div>
+			
+
 									<a href="#">
 										<i class="fa fa-heart-o"></i>
 										<span>Your Wishlist</span>
-										<div class="qty">2</div>
+										<div class="qty"><?php 
+											// counts number of products in wishlist 
+											if ( function_exists( 'YITH_WCWL' ) ) {
+												$wishlist_count = YITH_WCWL()->count_products();
+												echo '<span class="wishlist-count-top">' . esc_html( $wishlist_count ) . '</span>';
+											}
+										?>
+										</div>
 									</a>
 								</div>
 								<!-- /Wishlist -->
@@ -75,7 +84,7 @@
 									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Your Cart</span>
-										<div class="qty">3</div>
+										<div class="qty"><span class="cart-count-top"><?php echo WC()->cart->get_cart_contents_count(); ?></span></div>
 									</a>
 									<div class="cart-dropdown">
 										<div class="cart-list">

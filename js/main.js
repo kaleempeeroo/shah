@@ -12,18 +12,91 @@
 		e.stopPropagation();
 	});
  
+	// 1. Initialize DOM references (Cache them)
+    const selectors = {
+        //button: $('.add-to-cart-btn'),
+        //input: $('input.qty'),
+        //container: $('.input-number'),
+		custom_stock_div: $('.custom-stock'),
+		add_to_cart_btn: $('.add-to-cart-btn'),
+		qtyInput: $('input.number'),
+		numberInput: $('.input-number input'),
+		numberInputDiv: $('.input-number')
+    };
+
 	// Inserts stock HTML from woocommerce output inside our
 	// .custom-stock DIV in single product excerpt Price DIV 
 	// to display price inline with price
 	$('form.variations_form').on('show_variation', function(event, variation){
         const stock_html = variation.availability_html;
-        $('.custom-stock').html(stock_html); // Replace your custom container
+        selectors.custom_stock_div.html(stock_html); // Replace your custom container
+		// if variation is not in stock
+		if ( ! variation.is_in_stock ) {
+        // Disables the button and changes opacity
+		// adds pointer-events: none class to disable hover effects if not in stock for Add to Cart button
+        selectors.add_to_cart_btn.prop('disabled', true).css('opacity', '0.5');
+		selectors.add_to_cart_btn.addClass('no-hover-allowed');
+		 //var $qtyInput = jQuery('input.number');
+		} 
+		// variation is in stock
+		else {
+			// Re-enables Add to Cart button if they switch to an in-stock version
+			selectors.add_to_cart_btn.prop('disabled', false).css('opacity', '1');
+			// removes pointer-events: none class to re enable hover effects for Add to Cart button
+			selectors.add_to_cart_btn.removeClass('no-hover-allowed');
+			
+			//selectors.numberInput.prop('disabled', false).css('opacity', '1');
+			selectors.numberInput.prop('readonly', false).css('opacity', '1');
+			// re enable input DIV for quantity if in stock.
+			selectors.numberInputDiv.prop('disabled', false).css('opacity', '1');
+
+			selectors.numberInput.on('change', function() {
+				alert('hey');
+				if (parseInt(selectors.numberInput.val()) > maxStock) {
+					alert("Only " + maxStock + " units available!");
+					selectors.numberInput.val(maxStock); // Reset to max available
+				}
+			}); // end quantity change event.
+		}
     });
+    
+    
 
 	 // When "Clear options" is clicked, empty the custom stock div
     $('form.variations_form').on('reset_data', function(){
-        $('.custom-stock').html(''); // clears the content
+        selectors.custom_stock_div.html(''); // clears the content
+		// Disable Add to Cart button on page load until product selection is made.
+		selectors.add_to_cart_btn.prop('disabled', true).css('opacity', '0.5');
+		selectors.add_to_cart_btn.addClass('no-hover-allowed');
+		//$('.input-number').prop('disabled', true).css('opacity', '0.5');
+		//$('.input-number input').prop('readonly', true);
+		selectors.numberInput.prop('readonly', true).css('opacity', '0.5');
+		// re enable input DIV for quantity if in stock.
+		//selectors.numberInputDiv.prop('disabled', true).css('opacity', '1');
     });
+
+	if ($('.custom-stock:contains("Out of stock")').length > 0) {
+        selectors.add_to_cart_btn.attr('disabled', 'disabled').css('pointer-events', 'none').css('opacity', '0.5');
+		// disable input for quantity on product page.
+		//$('.input-number').prop('disabled', true).css('opacity', '0.5');
+		//$('.input-number input').prop('readonly', true);
+		selectors.numberInput.prop('readonly', true).css('opacity', '0.5');
+    }
+
+	
+	jQuery(document).ready(function($) {
+    // If it is a variable product, the variation form exits.
+	// Disable Add to Cart button on page load until product selection is made.
+    if ( $('form.variations_form').length > 0 ) {
+        selectors.add_to_cart_btn.prop('disabled', true).css('opacity', '0.5');
+		selectors.add_to_cart_btn.addClass('no-hover-allowed');
+		// disable input for quantity on initial loading of product page.
+		//$('.input-number').prop('disabled', true).css('opacity', '0.5');
+		//$('.input-number input').prop('readonly', true);
+		selectors.numberInputDiv.prop('disabled', false).css('opacity', '1');
+		
+    }
+})
 
 	/////////////////////////////////////////
 
@@ -189,14 +262,22 @@ qtyUpButtons.addEventListener('click', function(event) {
 // Start observing the body for changes.
 observer.observe(document.body, { childList: true, subtree: true });
 */
+
+	// + or - buttons are clicked on single product page to increase purchase quantity.
+	
     $(document).on('click', '.qty-up, .qty-down', function(e) {
-	console.log('triggered');
     if (e.target.classList.contains('qty-up')) {
         const container = e.target.closest('.input-number');
         const input = container.querySelector('input[type="number"]');
         let currentValue = parseInt(input.value);
+		
+		var stockVal = getStockStatus();
+		// cannot be negative value or 0.
         if (!isNaN(currentValue)) {
-            input.value = currentValue + 1;
+			// increase quantity only if it is up to max stock available.
+			if (currentValue < stockVal) {
+            	input.value = currentValue + 1;
+			}
         }
     }
 
@@ -209,6 +290,35 @@ observer.observe(document.body, { childList: true, subtree: true });
         } else if (currentValue === 1) {
             input.value = 1;
         }
+    }
+});
+
+function getStockStatus() {
+    var stockVal = 0;
+	// check if the DIV with class .custom-stock does not display 'Out of Stock'
+	if ($('.custom-stock:contains("Out of stock")').length == 0) { 
+		// get the string that displays the stock
+		var stockString = jQuery('.custom-stock').text().trim();
+		// return only the value = 2 and not '2 in stock'.
+		stockVal = parseInt(stockString.replace(/\D/g, ""));
+	}
+    return stockVal; // This "spits out" the string
+}
+
+jQuery(document).on('input', '.input-number', function(e) {
+    //var val = jQuery(this).val();
+    var max = getStockStatus();
+
+	// get the input container and the value typed.
+	const container = e.target.closest('.input-number');
+    const input = container.querySelector('input[type="number"]');
+    let val = parseInt(input.value);
+
+    // Example: Check if typed value exceeds stock
+    if (max && parseInt(val) > parseInt(max)) {
+        alert('You cannot exceed ' + max + ' items.');
+        input.value= max; // Force the value back to the limit
+		input.dispatchEvent(new Event('change', { bubbles: true })); 
     }
 });
 

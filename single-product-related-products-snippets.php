@@ -144,7 +144,7 @@ function open_product_btns_div() {
 			//echo do_shortcode( $shortcode_string );
 			//function add_woosq_mybutton() {
 				
-				if ( is_product() ) {
+				//if ( is_product() ) {
 					  $product_id = get_the_id();
         			    $button_text = 'Quick View';
 						// Use the WooCommerce hook to add the button
@@ -159,7 +159,7 @@ function open_product_btns_div() {
 					//$button_output = '<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp"><i class="fa fa-eye"></i></span></button>';
 					//echo $button_output;
 					echo do_shortcode( $shortcode_string ) ;
-}
+//}
 			//}
 			//add_shortcode('custom_woosq_button', 'add_woosq_mybutton');
 								  
