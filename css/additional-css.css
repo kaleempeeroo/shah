@@ -1618,3 +1618,44 @@ span.onsale {
 	display: inline-block;
 	position: absolute;
 }
+
+/****************************************************/
+/********** Single Product specifications ***********/
+/****************************************************/
+
+/* outer DIV */
+#tab-specs {
+	width: 100%;
+	max-width: 1200px;
+  margin: 30px auto;
+}
+
+/* Row ul */
+
+#tab-specs .tr {
+	display: flex;
+	margin: 30px auto;
+}
+
+/* Title li */
+
+#tab-specs .th {
+	width: 30%;
+}
+
+/* Description li */
+
+#tab-specs .td {
+  width:70%;
+}
+
+/* Title and Description */
+
+#tab-specs .th, #tab-specs .td {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #000;
+    padding: 15px;
+    border-bottom: 1px solid #d9d9d9;
+    display: table-cell;
+}
