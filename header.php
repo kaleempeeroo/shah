@@ -86,33 +86,61 @@
 										<span>Your Cart</span>
 										<div class="qty"><span class="cart-count-top"><?php echo WC()->cart->get_cart_contents_count(); ?></span></div>
 									</a>
+									
+
 									<div class="cart-dropdown">
 										<div class="cart-list">
-											<div class="product-widget">
-												<div class="product-img">
-													<img src="./img/product01.png" alt="">
-												</div>
-												<div class="product-body">
-													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-												</div>
-												<button class="delete"><i class="fa fa-close"></i></button>
-											</div>
+											<?php
+												if ( ! WC()->cart ) return 0;
+												$unique_items = 0;
+												$sub_total = 0;
 
-											<div class="product-widget">
-												<div class="product-img">
-													<img src="./img/product02.png" alt="">
-												</div>
-												<div class="product-body">
-													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-												</div>
-												<button class="delete"><i class="fa fa-close"></i></button>
-											</div>
+												// start the loop over the cart items
+												foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+
+													// Check for Simple Product ID or Variation ID
+													$qty = $cart_item['quantity'];
+													$product = $cart_item['data'];
+													
+													// 2. Get Name
+													$name = $product->get_name(); // Returns name including variation attributes
+
+													// 3. Get Quantity
+													$quantity = $cart_item['quantity']; // Direct access from cart item array
+													$line_total = WC()->cart->get_product_subtotal( $product, $cart_item['quantity'] );	
+													$thumbnail = wp_make_link_relative(wp_get_attachment_image_url( $product->get_image_id(), 'full' )); // Get the URL								
+													$unique_items = count( WC()->cart->get_cart() );
+													?>
+
+													<!-- Displaying each cart item in cart DIV -->
+
+													<div class="product-widget product-widget-id-<?php echo $cart_item_key; ?>" >
+
+														<div class="product-img">
+															<img src="<?php echo $thumbnail; ?>" alt="">
+														</div>
+
+														<div class="product-body">
+															<h3 class="product-name"><a href="#"><?php echo $name; ?></a></h3>
+															<h4 class="product-price price-block-<?php echo $cart_item_key; ?>">
+																<span class="qty">
+																	<?php echo $cart_item['quantity']; ?>x
+																</span> 
+																<?php echo WC()->cart->get_product_subtotal( $product, $quantity ); ?>
+															</h4>
+														</div>
+														<!-- close button (x) will send remove request to cart -->
+														<a href="<?php echo wc_get_cart_remove_url($cart_item_key); ?>" class="delete">
+															<i class="fa fa-close"></i>
+														</a>
+													</div>
+													<?php
+												}
+											?>									
 										</div>
 										<div class="cart-summary">
-											<small>3 Item(s) selected</small>
-											<h5>SUBTOTAL: $2940.00</h5>
+											<small><?php echo ($unique_items) ? $unique_items : 'No '; ?>Item(s) selected</small>
+											<h5>SUBTOTAL: <?php echo $sub_total; ?></h5>
 										</div>
 										<div class="cart-btns">
 											<a href="#">View Cart</a>

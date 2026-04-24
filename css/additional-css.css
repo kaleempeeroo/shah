@@ -1734,6 +1734,22 @@ table.wc-block-cart-items .wc-block-cart-items__header .wc-block-cart-items__hea
 	padding-left: 10px;
 	background-color: #D10024 !important;
 }
+
+/* Cart Header items list DIV */
+
+.cart-dropdown .cart-list {
+    max-height: 250px;
+    width: 280px;
+    overflow-y: scroll;
+    margin-bottom: 15px;
+}
+
+/* Cart Header buttons DIV */
+
+.cart-dropdown .cart-btns {
+	margin: 5px -17px !important;
+}
+
 /* Header Search textbox */
 
 .header-search form .input-select {
@@ -1765,3 +1781,8 @@ table.wc-block-cart-items .wc-block-cart-items__header .wc-block-cart-items__hea
 li.product .star-rating {
 	line-height: 1em;
 }
+button[name="update_cart"] {
+    display: none !important;
+}
+
+

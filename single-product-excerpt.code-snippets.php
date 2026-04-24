@@ -292,3 +292,38 @@ function close_excerpt_div(){
 */
 
 add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+
+
+/*
+	Intercepting the form on Single Product page for the Add to Cart button.
+	Get the current url we are on.
+	Get the quantity if it is set in URI else default to 1.
+	Construct URL by adding product ID and quantity for WooCommerce Cart page.	
+*/
+
+add_filter( 'woocommerce_add_to_cart_form_action', 'custom_add_to_cart_form_action' );
+
+function custom_add_to_cart_form_action( $url ) {
+    // Option 1: Redirect to Checkout directly
+    //$url = "http://localhost/shah/cart";
+	global $product;
+ 	$current_url = get_permalink( $product->get_id() );
+
+    // Check if we are on a product page and have a valid product object
+    if ( is_product() && is_object( $product ) ) {
+        $product_id = $product->get_id();
+        
+        // Get the current quantity (defaults to 1 if not set)
+        $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : 1;
+
+        // Construct the URL with parameters
+        $url = add_query_arg( array(
+            'add-to-cart' => $product_id,
+            'quantity'    => $quantity
+        ), $current_url );
+    }
+
+    return $url;
+    // Option 2: Redirect to a custom page URL
+    // return home_url( '/custom-thank-you/' );
+}

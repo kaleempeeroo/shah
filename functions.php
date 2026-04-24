@@ -413,19 +413,174 @@ function yith_wishlist_ajax_update_script() {
     <?php
 }
 
-/* Uses Woocommerce in built Fragments to refresh HTML part given by the class .cart-count-top, instead of page reload
-   YITH Wishlist does not use this feature and needs JQuery to refresh, as above.
-   Enable AJAX in WooCommerce settings in WP dashboard.
+/* 
+    WooCommerce Cart section.
+
+    Uses Woocommerce in built Fragments to refresh HTML part given by the class .cart-count-top, instead of page reload
+    YITH Wishlist does not use this Fragments feature and needs JQuery to refresh, as above.
+    Enable AJAX in WooCommerce settings in WP dashboard.
 */
 
 // 1. Ensure the cart count updates via AJAX
 add_filter( 'woocommerce_add_to_cart_fragments', 'refresh_cart_count_fragment' );
 
 function refresh_cart_count_fragment( $fragments ) {
+    
+     if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
+        error_log('inside count top ');   
+        return $fragments;
+    }
+   $unique_items = 0;
+   // Cart dropdown replacement HTML in header section 
+   ob_start();
+   ?>
+    <div class="cart-dropdown"> <!-- This MUST match your header class -->
+    <div class="cart-list">
+    <!-- Your dropdown items loop here -->
+    <?php
+    foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+        $product = $cart_item['data'];
+        $qty = $cart_item['quantity'];
+        $line_total = WC()->cart->get_product_subtotal( $product, $qty );	
+        $cart_count = WC()->cart->get_cart_contents_count();
+        $unique_items = count( WC()->cart->get_cart() );
+        $sub_total = WC()->cart->get_cart_subtotal();
+        $name = $product->get_name(); // Returns name including variation attributes
+        $thumbnail = wp_make_link_relative(wp_get_attachment_image_url( $product->get_image_id(), 'full' )); // Get the URL		
+        // creating a selector for each item in cart.
+        // This will match similar selector in header.php						
+        $selector = 'div.product-widget-id-' . $cart_item_key;
+       
+        ?>
+        
+             <div class="product-widget product-widget-id-<?php echo $cart_item_key; ?>" >
+                
+                <div class="product-img">
+                    <img src="<?php echo $thumbnail; ?>" alt="">
+                </div>
+
+                <div class="product-body">
+                    <h3 class="product-name"><a href="#"><?php echo $name; ?></a></h3>
+                    <h4 class="product-price price-block-<?php echo $cart_item_key; ?>">
+                        <span class="qty">
+                            <?php echo $qty; ?>x
+                        </span> 
+                        <?php echo $line_total; ?>
+                    </h4>
+                </div>
+             
+                <!-- close button (x) will send remove request to cart for chosen item -->
+                <a href="<?php echo wc_get_cart_remove_url($cart_item_key); ?>" class="delete">
+                    <i class="fa fa-close"></i>
+                </a>
+            
+            </div>
+            
+        <?php              
+    }   
+    ?>
+        <div class="cart-summary">
+            <small><?php echo ($unique_items) ? $unique_items : 'No '; ?> Item(s) selected</small>
+            <h5>SUBTOTAL: <?php echo $sub_total; ?></h5>
+        </div>
+        <div class="cart-btns">
+            <a href="#">View Cart</a>
+            <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div> <!-- cart-list DIV -->
+    </div> <!-- cart-dropdown DIV -->
+
+    <?php
+    $fragments['.cart-dropdown'] = ob_get_clean();
+
+    // Cart Count for total number of items in header section
+    $fragments['span.cart-count-top'] = '<span class="cart-count-top">' . WC()->cart->get_cart_contents_count() . '</span>';
+
+    return $fragments;
+}
+
+// replacing in page-cart2.php body
+add_filter( 'woocommerce_add_to_cart_fragments', function( $fragments ) {
     ob_start();
     ?>
-    <span class="cart-count-top"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+    <!-- This matches the count inside your <h2> above -->
+    <h2 class="cart-title">
+        Your Cart (<?php echo WC()->cart->get_cart_contents_count(); ?> items)
+    </h2>
     <?php
-    $fragments['span.cart-count-top'] = ob_get_clean();
+    $fragments['h2.cart-title'] = ob_get_clean();    
+    
     return $fragments;
+});
+
+add_action( 'wp_enqueue_scripts', function() {
+    // Force the AJAX fragment script to load even on non-standard pages
+    wp_enqueue_script( 'wc-cart-fragments' );
+}, 99 );
+
+/**
+ * Get the quantity of a specific product ID currently in the cart
+ */
+function get_cart_quantity_by_id( $product_id ) {
+    // Safety check: Is WooCommerce active?
+    if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
+        return 0;
+    }
+
+    $count = 0;
+    foreach ( WC()->cart->get_cart() as $cart_item ) {
+        if ( $cart_item['product_id'] == $product_id || $cart_item['variation_id'] == $product_id ) {
+            $count += $cart_item['quantity'];
+        }
+    }
+    return $count;
+}
+
+// filter to intercept each cart item before they are output to the screen,
+// on cart page. It seems like the product name column, while the next filter
+// down is for the quantity column.
+
+add_filter( 'woocommerce_get_item_data', 'intercept_cart_item_data', 10, 2 );
+
+function intercept_cart_item_data( $item_data, $cart_item ) {
+    // 1. Get the Product Object
+    $product = $cart_item['data'];
+    $stock = $product->get_stock_quantity();
+
+    // 2. Add custom data to the display array
+    // Custom values will appear in product name column usually.
+    $item_data[] = array(
+        'key'   => 'Current Stock',
+        'value' => $stock ? $stock : 'In Stock',
+    );
+
+    // 3. Example: Add a custom message if stock is low
+    if ( $product->managing_stock() && $stock < 5 ) {
+        $item_data[] = array(
+            'key'   => 'Status',
+            'value' => '<span style="color:red;">Limited Stock!</span>',
+        );
+    }
+
+    return $item_data;
+}
+
+// filter to intercept quantity column of each cart item before being displayed.
+// We are custom designing the quantity with +/- buttons.
+
+add_filter( 'woocommerce_cart_item_quantity', 'custom_cart_item_quantity_input', 10, 3 );
+
+function custom_cart_item_quantity_input( $product_quantity, $cart_item_key, $cart_item ) {
+    // 1. Get the current quantity and max stock
+    $qty = $cart_item['quantity'];
+    $max_value = $cart_item['data']->get_max_purchase_quantity();
+
+    // 2. Build your custom HTML (matching your previous design)
+    $html = '<div class="input-number" data-cart-item-key="' . $cart_item_key . '">';
+    $html .= '<input type="number" name="cart[' . $cart_item_key . '][qty]" value="' . $qty . '" max="' . $max_value . '" min="1" class="qty-input">';
+    $html .= '<span class="qty-up">+</span>';
+    $html .= '<span class="qty-down">-</span>';
+    $html .= '</div>';
+
+    return $html;
 }
